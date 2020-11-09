@@ -431,7 +431,7 @@
 #endif
 
 #if TEMP_SENSOR_0 == -5 || TEMP_SENSOR_0 == -3 || TEMP_SENSOR_0 == -2
-  #define HEATER_0_USES_MAX6675
+  #define HEATER_0_USES_MAX6675 1
   #if TEMP_SENSOR_0 == -3
     #define HEATER_0_MAX6675_TMIN -270
     #define HEATER_0_MAX6675_TMAX 1800
@@ -460,7 +460,7 @@
 #endif
 
 #if TEMP_SENSOR_1 == -5 || TEMP_SENSOR_1 == -3 || TEMP_SENSOR_1 == -2
-  #define HEATER_1_USES_MAX6675
+  #define HEATER_1_USES_MAX6675 1
   #if TEMP_SENSOR_1 == -3
     #define HEATER_1_MAX6675_TMIN -270
     #define HEATER_1_MAX6675_TMAX 1800
