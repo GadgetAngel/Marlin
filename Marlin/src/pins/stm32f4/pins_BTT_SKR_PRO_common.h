@@ -216,13 +216,163 @@
   #define TMC_BAUD_RATE                    19200
 #endif
 
+
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                          PF4   // T1 <-> E0
-#define TEMP_1_PIN                          PF5   // T2 <-> E1
-#define TEMP_2_PIN                          PF6   // T3 <-> E2
+// GADGETANGEL --------SET the TEMP_0_PIN to the E0 Temperature sensor CS line
+// GADGETANGEL --------SET the TEMP_1_PIN to the E1 Temperature sensor CS line
+#define TEMP_0_PIN                          PF7   // T1 <-> E0, //GADGETANGEL originally set PF4 //GADGETANGEL set for PE2 or PD0 or PE4 or PC1
+#define TEMP_1_PIN                          PF8   // T2 <-> E1, //GADGETANGEL originally set PF5 //GADGETANGEL set for PF8, PE2 or PD0 or PE4 or PC1
+#define TEMP_2_PIN                          PF6   // T3 <-> E2  //GADGETANGEL originally set PF6
 #define TEMP_BED_PIN                        PF3   // T0 <-> Bed
+
+
+//***********************************
+//********************************** GADGETANGEL CHANGE THIS to match your configuration
+//***********************************
+//***********************************
+//#define myThermocouple  //uncomment to use the Thermocouple SECTION, comment out otherwise
+#define myPT100         //uncomment to use the PT100/PT1000 SECTION, comment out otherwise
+// If both myThermocouple and myPT100 are uncommented then the Thermocouple section with MAX31855 SPI Section will be used!
+
+//-------------------------------------------------THERMOCOUPLE SECTION----------------------------------------------------------
+#if ENABLED(myThermocouple)
+    #define myThermocouple_SPI   //for MAX31855    //uncomment to use the Thermocouple with MAX31855 SPI Section, 
+                                                  //comment out to use the Thermocouple with Adafruit AD8495 Amplifier ANALOG Section
+  #if ENABLED(myThermocouple_SPI)
+    //
+    // SOFTWARE SPI the board performs the SPI protocol handshake with software.
+    // HARDWARE SPI the board performs the SPI protocol handshake with hardware interrupts.
+    //
+    //
+    #define myMAX31855_SW  // uncomment myMAX31855_SW for Software SPI, comment out myMAX31855_SW for Hardware SPI
+
+    #ifndef MAX6675_SS_PIN
+      // GADGETANGEL notes:
+      // if you want to use TWO thermocouples on the SKR PRO V1.x board than both MAX31855 board must use the same SCK_PIN and DO_PIN
+      // If you have an existing MAX31855 on the MCU board, then you must use the SPI protocol that ONBOARD MAX31855 is using (Software SPI or Hardware SPI).
+      // You can not have one MAX31855 use Software SPI and a second MAX31855 use Hardware SPI.  You can not mix SPI states between two MAX31855 boards.
+      // The SKR PRO V1.x board does not have an ONBOARD MAX31855 but the GTR V1.0 board does have an ONBOARD MAX31855 chip.
+      // END OF GADGETANGEL notes section
+      //
+      //
+      //-------------------------------------------- THERMOCOUPLE  with MAX31855 SPI Section
+      // Ensure that TEMP_1_PIN is set the PE2 or PD0 or PE4 or PC1
+      // Ensure that TEMP_1_PIN is set the PE2 or PD0 or PE4 or PC1
+      // in configuration.h ensure TEMP_SENSOR_0 is set for -3 and if using a second thermocouple ensure TEMP_SENSOR_1 is set for -3
+      #define THERMO_SCK_PIN            PE0             // SCK    
+      #define THERMO_DO_PIN             PD5             // MISO   
+      #define THERMO_CS1_PIN            TEMP_0_PIN      // CS1 for first thermocouple, set for PE2 or PD0 or PE4 or PC1 
+      #define THERMO_CS2_PIN            TEMP_1_PIN      //CS2 for secound thermocouple, set for PE2 or PD0 or PE4 or PC1
+
+      #if ENABLED(myMAX31855_SW)
+        //Software SPI with MAX6675_SEPARATE_SPI
+        // First Thermocouple and secound Thermocouple uses Sofware 
+        // SPI for Max6675 or Max31855 Thermocouple
+        // Uses a separate SPI bus
+        #define MAX6675_SS_PIN            THERMO_CS1_PIN   //for first Thermocouple
+        #define MAX6675_SS2_PIN           THERMO_CS2_PIN   //for secound Thermocouple 
+        #define MAX6675_SCK_PIN           THERMO_SCK_PIN   
+        #define MAX6675_DO_PIN            THERMO_DO_PIN
+      #else
+        //Hardware SPI
+        // the SPI MOSI, SPI MISO and SPI SCK lines must come from the default SPI Bus which for the SKR PRO V1.x board is 
+        // SPI bus 2 which is the EXP2 connector.  Wire the MAX31855 MISO and SCK lines into the EXP2 connector's
+        // SPI lines
+        #ifndef MAX6675_SCK 
+          #ifndef MAX6675_DO
+            #define MAX6675_SS_PIN            THERMO_CS1_PIN
+            #define MAX6675_SS2_PIN           THERMO_CS2_PIN  
+          #endif
+        #endif
+        // end of HARDWARE SPI               
+      #endif 
+    #endif
+    //------------------------------------------end of THERMOCOUPLE with MAX31865 SPI section
+  #else
+    //-------------------------------------------- THERMOCOUPLE with Adafruit AD8495 AMP (ANALOG) Section
+    //GADGETANGEL for Adafruit AD8495 Amplifier board with a K-Type Thermocouple temperature sensor
+    //ensure TEMP_SENSOR_0 is set to -4 
+    //ensure TEMP_SENSOR_0 is set to -4 
+    //ENSURE you setup TEMP_0_PIN to the Signal OUT on the Adafruit AD8495 amplifier board
+    #ifndef MAX6675_SS_PIN
+        //set TEMP_0_PIN above for PE2 or PD0 or PE4 or PC1, or (PF4 for T1,PF5 for T2, PF6 for T3) 
+        //set TEMP_1_PIN  above for PE2 or PD0 or PE4 or PC1, or (PF4 for T1,PF5 for T2, PF6 for T3)
+        //ENSURE in configuration_adv.h you set the following:
+        //#define TEMP_SENSOR_AD8495_OFFSET -250.0   //the adafruit AD8495's offset is -250
+        //#define TEMP_SENSOR_AD8495_GAIN   1.0
+    #endif
+    //------------------------------------------------end of THERMOCOUPLE with Adafruit AD8495AMP (ANALOG) Section
+  #endif
+#endif
+//--------------------------------------------------------PT100/1000 Section----------------------------------------------------------
+#if ENABLED(myPT100)
+  #define myPT100_SPI  //for MAX31865 and PT100    //uncomment to use the PT100 with Adafruit MAX31865 SPI Section, 
+                                                   //comment out to use to use the PT100 amplifier ANALOG Section 
+  //#define myMAX31865_SW // uncomment myMAX31865_SW for Software SPI, comment out myMAX31865_SW for Hardware SPI 
+  #if ENABLED(myPT100_SPI)
+    //-------------------------------------------- PT100 with MAX31865 SPI Section
+    // SOFTWARE SPI the board performs the SPI protocol handshake with software.
+    // HARDWARE SPI the board performs the SPI protocol handshake with hardware interrupts.
+    // If you want HARDWARE SPI for the MAX31865 board you need to ensure that MAX6675_SS_PIN is equal to MAX31865_CS_PIN
+    // If you want SOFTWARE SPI for the MAX31865 board you need to ensure that MAX6675_SS_PIN is NOT equal to MAX31865_CS_PIN
+    //GADGETANGEL for MAX31865 board
+    //MAX31865 board for SPI communication with PT100 temperature sensor, ensure TEMP_SENSOR_0 is set to -5, 
+    //and if using a second PT100 ensure TEMP_SENSOR_1 is set for -5
+    // ENSURE you setup TEMP_0_PIN to the PT100_CS_PIN you desire
+    #ifndef MAX6675_SS_PIN
+      #define PT100_CS_PIN                      TEMP_0_PIN  
+      #define PT100_CS2_PIN                     TEMP_1_PIN  
+      // Define the MAX31865 board's PINS
+      #define UNUSED_PIN                        PC1  //must be an unused PIN on the board - this PIN is on EXTENSION-1 header
+      #define PT100_MISO_PIN                    PC9
+      #define PT100_SCK_PIN                     PF9
+      #define PT100_MOSI_PIN                    PC4   //can NOT be set as the default Hardware SPI MOSI PIN (MOSI_PIN=PB15)
+
+      #if ENABLED(myMAX31865_SW)
+        //Software SPI wanted
+        // the SPI MOSI, SPI MISO and SPI SCK line must all be shared beween two MAX31865 board, if you want two PT100
+        #define MAX6675_DO_PIN                    PT100_MISO_PIN 
+        #define MAX6675_SCK_PIN                   PT100_SCK_PIN
+        #define MAX31865_MOSI_PIN                 PT100_MOSI_PIN
+        // for ONE MAX31865 board
+        #define MAX31865_CS_PIN                   PT100_CS_PIN  
+        //This must be UNUSED_PIN for 1 MAX31865 in software SPI and MAX6675_SEPARATE_SPI  
+        #define MAX6675_SS_PIN                    UNUSED_PIN    //forces Software SPI mode
+        //enable the below two lines if you have a second MAX31865 board in software spi mode    
+        #define MAX31865_CS2_PIN                  PT100_CS2_PIN
+        #define MAX6675_SS2_PIN                   UNUSED_PIN   //forces Software SPI mode
+      #else
+        //HARDWARE SPI wanted
+        // the SPI MOSI, SPI MISO and SPI SCK lines must come from the default SPI Bus which for the SKR PRO V1.x board is 
+        // SPI bus 2 which is the EXP2 connector.  Wire the MAX31865 MOSI, MISO and SCK lines into the EXP2 connector's
+        // SPI lines
+        #ifndef MAX6675_SCK 
+          #ifndef MAX6675_DO
+            #define MAX6675_SS_PIN                    PT100_CS_PIN   
+            #define MAX31865_CS_PIN                   MAX6675_SS_PIN    //forces HARDWARE SPI for one or two MAX31865 boards
+            // enable the below two lines if you have 2 Adafruit MAX31865 boards
+            #define MAX6675_SS2_PIN                   PT100_CS2_PIN   
+            //#define MAX31865_CS2_PIN                  MAX6675_SS2_PIN  //forces Hardware SPI for the second MAX31865 board
+          #endif
+        #endif
+      #endif
+    #endif
+    //------------------------------------------------end of PT100 with MAX31865 SPI section
+  #else
+    //-------------------------------------------- PT100 with PT100AMP (ANALOG) Section
+    //GADGETANGEL for E3D PT100 Amplifier board with a PT100 temperature sensor
+    //ensure TEMP_SENSOR_0 is set to 20 if using 3.3VDC to power the PT100 amplifier on SKR PRO V1.2 board (MCU with ADC ref voltage of 3.3VDC)
+    //ensure TEMP_SENSOR_0 is set to 21 if using 5V to power the PT100 amplifier on SKR PRO V1.2 board (MCU with ADC ref voltage of 3.3VDC)
+    //ENSURE you setup TEMP_0_PIN to the Signal out on the PT100 amplifier board
+    #ifndef MAX6675_SS_PIN
+      //set TEMP_0_PIN above for PE2 or PD0 or PE4 or PC1, or (PF4 for T1,PF5 for T2, PF6 for T3) 
+      //set TEMP_1_PIN  above for PE2 or PD0 or PE4 or PC1, or (PF4 for T1,PF5 for T2, PF6 for T3)
+    #endif
+    //------------------------------------------------end of PT100 with PT100AMP (ANALOG) Section
+  #endif
+#endif
 
 //
 // Heaters / Fans
@@ -372,6 +522,14 @@
     #define BOARD_ST7920_DELAY_3   DELAY_NS(600)
   #endif
 #endif
+
+//check to to see what SPI bus you are on
+#if PIN_SPI_SS == PB12
+ #define myVariable 1
+#else
+ #define myVariable 0
+#endif
+
 
 //
 // WIFI
