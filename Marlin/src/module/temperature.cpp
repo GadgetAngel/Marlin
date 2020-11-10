@@ -49,6 +49,12 @@
   #ifndef MAX31865_CS_PIN
     #define MAX31865_CS_PIN     MAX6675_SS_PIN  // HW:49   SW:65    for example
   #endif
+  //GADGETANGEL  only perform and automatic setting of MAX31865_CS2_PIN if TEMP_SENSOR_1 is using the Adafruit MAX31865 board
+  #if TEMP_SENSOR_1 == -5
+    #ifndef MAX31865_CS2_PIN 
+      #define MAX31865_CS2_PIN  MAX6675_SS2_PIN
+    #endif
+  #endif
   #ifndef MAX31865_MOSI_PIN
     #define MAX31865_MOSI_PIN   MOSI_PIN        //            63
   #endif
@@ -58,13 +64,25 @@
   #ifndef MAX31865_SCK_PIN
     #define MAX31865_SCK_PIN    MAX6675_SCK_PIN //            40
   #endif
-  Adafruit_MAX31865 max31865 = Adafruit_MAX31865(MAX31865_CS_PIN
+  Adafruit_MAX31865 max31865_0 = Adafruit_MAX31865(MAX31865_CS_PIN
     #if MAX31865_CS_PIN != MAX6675_SS_PIN
       , MAX31865_MOSI_PIN           // For software SPI also set MOSI/MISO/SCK
       , MAX31865_MISO_PIN
       , MAX31865_SCK_PIN
     #endif
   );
+  //GADGETANGEL only in instantiate the second Adafruit MAX31865 object if TEMP_SENSOR_1 is using it
+  #if TEMP_SENSOR_1 == -5
+    #if MAX31865_CS2_PIN
+      Adafruit_MAX31865 max31865_1 = Adafruit_MAX31865(MAX31865_CS2_PIN
+        #if MAX31865_CS2_PIN != MAX6675_SS2_PIN
+          , MAX31865_MOSI_PIN           // For software SPI also set MOSI/MISO/SCK
+          , MAX31865_MISO_PIN
+          , MAX31865_SCK_PIN
+        #endif
+      );
+    #endif
+  #endif
 #endif
 
 #define MAX6675_SEPARATE_SPI (EITHER(HEATER_0_USES_MAX6675, HEATER_1_USES_MAX6675) && PINS_EXIST(MAX6675_SCK, MAX6675_DO))
@@ -1473,7 +1491,7 @@ void Temperature::manage_heater() {
         #elif HEATER_0_USES_MAX6675
           return (
             #if MAX6675_IS_MAX31865
-              max31865.temperature(MAX31865_SENSOR_OHMS, MAX31865_CALIBRATION_OHMS)
+              max31865_0.temperature(MAX31865_SENSOR_OHMS_0, MAX31865_CALIBRATION_OHMS_0)
             #else
               raw * 0.25
             #endif
@@ -1489,7 +1507,13 @@ void Temperature::manage_heater() {
         #if HEATER_1_USER_THERMISTOR
           return user_thermistor_to_deg_c(CTI_HOTEND_1, raw);
         #elif HEATER_1_USES_MAX6675
-          return raw * 0.25;
+          return (
+            #if MAX6675_IS_MAX31865
+              max31865_1.temperature(MAX31865_SENSOR_OHMS_1, MAX31865_CALIBRATION_OHMS_1)
+            #else
+              raw * 0.25
+            #endif
+          );
         #elif HEATER_1_USES_AD595
           return TEMP_AD595(raw);
         #elif HEATER_1_USES_AD8495
@@ -1691,8 +1715,12 @@ void Temperature::updateTemperaturesFromRawValues() {
  */
 void Temperature::init() {
 
-  TERN_(MAX6675_IS_MAX31865, max31865.begin(MAX31865_2WIRE)); // MAX31865_2WIRE, MAX31865_3WIRE, MAX31865_4WIRE
+  TERN_(MAX6675_IS_MAX31865, max31865_0.begin(MAX31865_2WIRE)); // MAX31865_2WIRE, MAX31865_3WIRE, MAX31865_4WIRE
 
+  //GADGETANGEL only init() the second instantiation of the Adafruit MAX31865 object for TEMP_SENSOR_1 when it is required
+  #if TEMP_SENSOR_1 == -5
+    TERN_(MAX6675_IS_MAX31865, max31865_1.begin(MAX31865_2WIRE)); // MAX31865_2WIRE, MAX31865_3WIRE, MAX31865_4WIRE
+  #endif 
   #if EARLY_WATCHDOG
     // Flag that the thermalManager should be running
     if (inited) return;
@@ -2216,11 +2244,17 @@ void Temperature::disable_all_heaters() {
 
     #define MAX6675_HEAT_INTERVAL 250UL
 
+    //GADGETANGEL  setup the MAX6675 masks for the Adafruit MAX31865 board
     #if MAX6675_IS_MAX31855
       static uint32_t max6675_temp = 2000;
       #define MAX6675_ERROR_MASK    7
       #define MAX6675_DISCARD_BITS 18
       #define MAX6675_SPEED_BITS    3  // (_BV(SPR1)) // clock ÷ 64
+    #elif MAX6675_IS_MAX31865
+      static uint16_t max6675_temp = 2000;  //from datasheet 16 bits D15-D0
+      #define MAX6675_ERROR_MASK    1       //D0 Bit not used 
+      #define MAX6675_DISCARD_BITS  1       //data is in D15-D1
+      #define MAX6675_SPEED_BITS    3       // (_BV(SPR1)) // clock ÷ 64
     #else
       static uint16_t max6675_temp = 2000;
       #define MAX6675_ERROR_MASK    4
@@ -2242,8 +2276,17 @@ void Temperature::disable_all_heaters() {
 
     next_max6675_ms[hindex] = ms + MAX6675_HEAT_INTERVAL;
 
-    #if MAX6675_IS_MAX31865
-      max6675_temp = int(max31865.temperature(MAX31865_SENSOR_OHMS, MAX31865_CALIBRATION_OHMS));
+    //GADGETANGEL send back the right Adafruit MAX31986 temperature value in Celsius for the current object  //tt
+    #if COUNT_6675 == 1 && MAX6675_IS_MAX31865
+      max6675_temp = int(max31865_0.temperature(MAX31865_SENSOR_OHMS_0, MAX31865_CALIBRATION_OHMS_0)); 
+    #endif
+
+    #if COUNT_6675 > 1 && ENABLED(MAX6675_IS_MAX31865)
+      #if hindex == 0
+        max6675_temp = int(max31865_0.temperature(MAX31865_SENSOR_OHMS_0, MAX31865_CALIBRATION_OHMS_0));
+      #elif hindex == 1
+        max6675_temp = int(max31865_1.temperature(MAX31865_SENSOR_OHMS_1, MAX31865_CALIBRATION_OHMS_1)); 
+      #endif
     #endif
 
     //
@@ -2285,7 +2328,19 @@ void Temperature::disable_all_heaters() {
 
     WRITE_MAX6675(HIGH); // disable TT_MAX6675
 
-    if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK)) {
+    //GADGETANGEL check for fault on Adafruit MAX31865 boards
+    uint8_t fault = 1;
+    #if (COUNT_6675 == 1 && MAX6675_IS_MAX31865)
+        fault = max31865_0.readFault();
+    #elif MAX6675_IS_MAX31865
+      #if hindex == 0
+        fault = max31865_0.readFault();
+      #elif hindex == 1
+        fault = max31865_1.readFault(); 
+      #endif           
+    #endif 
+
+    if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK) && fault) {
       max6675_errors[hindex] += 1;
       if (max6675_errors[hindex] > THERMOCOUPLE_MAX_ERRORS) {
         SERIAL_ERROR_START();
@@ -2298,6 +2353,32 @@ void Temperature::disable_all_heaters() {
             SERIAL_ECHOLNPGM("Short to GND");
           else if (max6675_temp & 4)
             SERIAL_ECHOLNPGM("Short to VCC");
+        #elif MAX6675_ERROR_MASK == 1 
+          if (fault) {
+            SERIAL_ECHOPAIR("MAX31865 Fault :(", fault, ")  >>");
+            if (fault & MAX31865_FAULT_HIGHTHRESH) 
+              SERIAL_ECHOLNPGM("RTD High Threshold");
+            else if (fault & MAX31865_FAULT_LOWTHRESH)
+              SERIAL_ECHOLNPGM("RTD Low Threshold");
+            else if (fault & MAX31865_FAULT_REFINLOW)
+              SERIAL_ECHOLNPGM("REFIN- > 0.85 x Bias");
+            else if (fault & MAX31865_FAULT_REFINHIGH)
+              SERIAL_ECHOLNPGM("REFIN- < 0.85 x Bias - FORCE- open");
+            else if (fault & MAX31865_FAULT_RTDINLOW)
+              SERIAL_ECHOLNPGM("REFIN- < 0.85 x Bias - FORCE- open");
+            else if  (fault & MAX31865_FAULT_OVUV)
+              SERIAL_ECHOLNPGM("Under/Over voltage");
+
+            #if COUNT_6675 == 1
+              max31865_0.clearFault();
+            #else
+              #if hindex == 0
+                max31865_0.clearFault();
+              #elif hindex == 1
+                max31865_1.clearFault();
+              #endif           
+            #endif   
+          } 
         #else
           SERIAL_ECHOLNPGM("MAX6675");
         #endif
