@@ -1693,6 +1693,8 @@ void Temperature::updateTemperaturesFromRawValues() {
   #define INIT_CHAMBER_AUTO_FAN_PIN(P) SET_OUTPUT(P)
 #endif
 
+//ga
+
 /**
  * Initialize the temperature manager
  * The manager is implemented by periodic calls to manage_heater()
@@ -2203,6 +2205,7 @@ void Temperature::disable_all_heaters() {
 
 #endif // PROBING_HEATERS_OFF
 
+//ga
 #if HAS_MAX6675
 
   #ifndef THERMOCOUPLE_MAX_ERRORS
@@ -2328,7 +2331,7 @@ void Temperature::disable_all_heaters() {
         #endif
 
         // Thermocouple open
-        max6675_temp = 4 * MAX6675_SEL(HEATER_0_MAX6675_TMAX, HEATER_1_MAX6675_TMAX);
+        max6675_temp = 4 * (MAX6675_SEL(HEATER_0_MAX6675_TMAX, HEATER_1_MAX6675_TMAX));
       }
       else
         max6675_temp >>= MAX6675_DISCARD_BITS;
