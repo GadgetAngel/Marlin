@@ -52,12 +52,6 @@
   #if MAX6675_1_IS_MAX31865 && !defined(MAX31865_CS2_PIN) && PIN_EXISTS(MAX6675_SS2)
     #define MAX31865_CS2_PIN  MAX6675_SS2_PIN
   #endif
-  //GADGETANGEL  only perform and automatic setting of MAX31865_CS2_PIN if TEMP_SENSOR_1 is using the Adafruit MAX31865 board
-  #if TEMP_SENSOR_1 == -5
-    #ifndef MAX31865_CS2_PIN 
-      #define MAX31865_CS2_PIN  MAX6675_SS2_PIN
-    #endif
-  #endif
   #ifndef MAX31865_MOSI_PIN
     #define MAX31865_MOSI_PIN MOSI_PIN
   #endif
@@ -1708,10 +1702,6 @@ void Temperature::init() {
   TERN_(MAX6675_0_IS_MAX31865, max31865_0.begin(MAX31865_2WIRE)); // MAX31865_2WIRE, MAX31865_3WIRE, MAX31865_4WIRE
   TERN_(MAX6675_1_IS_MAX31865, max31865_1.begin(MAX31865_2WIRE));
 
-  //GADGETANGEL only init() the second instantiation of the Adafruit MAX31865 object for TEMP_SENSOR_1 when it is required
-  #if TEMP_SENSOR_1 == -5
-    TERN_(MAX6675_IS_MAX31865, max31865_1.begin(MAX31865_2WIRE)); // MAX31865_2WIRE, MAX31865_3WIRE, MAX31865_4WIRE
-  #endif 
   #if EARLY_WATCHDOG
     // Flag that the thermalManager should be running
     if (inited) return;
