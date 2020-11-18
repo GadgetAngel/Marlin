@@ -468,7 +468,7 @@ private:
 
   TERN_(DELTA_AUTO_CALIBRATION, static void G33());
 
-  #if EITHER(Z_STEPPER_AUTO_ALIGN, MECHANICAL_GANTRY_CALIBRATION)
+  #if ANY(Z_MULTI_ENDSTOPS, Z_STEPPER_AUTO_ALIGN, MECHANICAL_GANTRY_CALIBRATION)
     static void G34();
   #endif
 
@@ -769,12 +769,8 @@ private:
 
   #if ENABLED(PASSWORD_FEATURE)
     static void M510();
-    #if ENABLED(PASSWORD_UNLOCK_GCODE)
-      static void M511();
-    #endif
-    #if ENABLED(PASSWORD_CHANGE_GCODE)
-      static void M512();
-    #endif
+    TERN_(PASSWORD_UNLOCK_GCODE, static void M511());
+    TERN_(PASSWORD_CHANGE_GCODE, static void M512());
   #endif
 
   TERN_(SDSUPPORT, static void M524());
