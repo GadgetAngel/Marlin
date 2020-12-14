@@ -2262,14 +2262,14 @@ void Temperature::disable_all_heaters() {
       #define MAX6675_DISCARD_BITS  3
       #define MAX6675_SPEED_BITS    2       // (_BV(SPR0)) // clock ÷ 16
     #endif
-
+  
     #if HAS_MULTI_6675
       // Needed to return the correct temp when this is called between readings
       static uint16_t max6675_temp_previous[COUNT_6675] = { 0 };
       #define MAX6675_TEMP(I) max6675_temp_previous[I]
       #define MAX6675_SEL(A,B) (hindex ? (B) : (A))
-      #define MAX6675_WRITE(V)     do{ switch (hindex) { case 1:      WRITE(MAX6675_SS2_PIN, V); break; default:      WRITE(MAX6675_SS_PIN, V); } }while(0)
-      #define MAX6675_SET_OUTPUT() do{ switch (hindex) { case 1: SET_OUTPUT(MAX6675_SS2_PIN);    break; default: SET_OUTPUT(MAX6675_SS_PIN);    } }while(0)
+      //#define MAX6675_WRITE(V)     do{ switch (hindex) { case 1:      WRITE(MAX6675_SS2_PIN, V); break; default:      WRITE(MAX6675_SS_PIN, V); } }while(0)
+      //#define MAX6675_SET_OUTPUT() do{ switch (hindex) { case 1: SET_OUTPUT(MAX6675_SS2_PIN);    break; default: SET_OUTPUT(MAX6675_SS_PIN);    } }while(0)
     #else
       constexpr uint8_t hindex = 0;
       #define MAX6675_TEMP(I) max6675_temp
@@ -2278,6 +2278,7 @@ void Temperature::disable_all_heaters() {
       #else
         #define MAX6675_SEL(A,B) A
       #endif
+      /*
       #if HEATER_0_USES_MAX6675
         #define MAX6675_WRITE(V)          WRITE(MAX6675_SS_PIN, V)
         #define MAX6675_SET_OUTPUT() SET_OUTPUT(MAX6675_SS_PIN)
@@ -2285,6 +2286,7 @@ void Temperature::disable_all_heaters() {
         #define MAX6675_WRITE(V)          WRITE(MAX6675_SS2_PIN, V)
         #define MAX6675_SET_OUTPUT() SET_OUTPUT(MAX6675_SS2_PIN)
       #endif
+      */
     #endif
 
     static uint8_t max6675_errors[COUNT_6675] = { 0 };
@@ -2295,6 +2297,7 @@ void Temperature::disable_all_heaters() {
     if (PENDING(ms, next_max6675_ms[hindex])) return int(MAX6675_TEMP(hindex));
     next_max6675_ms[hindex] = ms + MAX6675_HEAT_INTERVAL;
 
+/*
     //
     // TODO: spiBegin, spiRec and spiInit doesn't work when soft spi is used.
     ////ga
@@ -2307,7 +2310,7 @@ void Temperature::disable_all_heaters() {
       MAX6675_WRITE(LOW);  // enable TT_MAX6675
       DELAY_NS(100);       // Ensure 100ns delay
     #endif
-
+*/
     // Read a big-endian temperature value
     max6675_temp = 0;
     #if NO_THERMO_TEMPS

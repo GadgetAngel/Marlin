@@ -143,7 +143,7 @@
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
 //ga
-#define EXTRUDERS 1
+#define EXTRUDERS 2
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -410,7 +410,7 @@
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  *///ga
 #define TEMP_SENSOR_0 -5
-#define TEMP_SENSOR_1 0
+#define TEMP_SENSOR_1 -5
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
