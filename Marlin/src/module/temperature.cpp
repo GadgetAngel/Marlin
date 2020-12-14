@@ -25,7 +25,6 @@
  */
 
 // Useful when debugging thermocouples
-//ga
 //#define IGNORE_THERMOCOUPLE_ERRORS
 
 #include "temperature.h"
@@ -44,7 +43,7 @@
 #if ENABLED(EXTENSIBLE_UI)
   #include "../lcd/extui/ui_api.h"
 #endif
-//ga
+
 #if MAX6675_HAS_MAX31855
   #include <Adafruit_MAX31855.h>
   #if PIN_EXISTS(MAX31855_MISO) && PIN_EXISTS(MAX31855_SCK)
@@ -114,17 +113,21 @@
   #endif
 #endif
 
+/*
 #if !HAS_MAX6675_TEMP && !HAS_MAX31855_TEMP && !HAS_MAX31865_TEMP
   #define NO_THERMO_TEMPS 1
 #endif
+
 
 #if (HEATER_0_USES_MAX6675 || HEATER_1_USES_MAX6675) && PINS_EXIST(MAX6675_SCK, MAX6675_DO) && NO_THERMO_TEMPS
   #define MAX6675_SEPARATE_SPI 1
 #endif
 
+
 #if MAX6675_SEPARATE_SPI
   #include "../libs/private_spi.h"
 #endif
+*/
 
 #if ENABLED(PID_EXTRUSION_SCALING)
   #include "stepper.h"
@@ -1506,7 +1509,7 @@ void Temperature::manage_heater() {
     return _MIN(value + THERMISTOR_ABS_ZERO_C, 999);
   }
 #endif
-//ga
+
 #if HAS_HOTEND
   // Derived from RepRap FiveD extruder::getTemperature()
   // For hot end temperature measurement.
@@ -1679,7 +1682,7 @@ void Temperature::manage_heater() {
  * The raw values are created in interrupt context,
  * and this function is called from normal context
  * as it would block the stepper routine.
- *///ga
+ */
 void Temperature::updateTemperaturesFromRawValues() {
   TERN_(HEATER_0_USES_MAX6675, temp_hotend[0].raw = READ_MAX6675(0));
   TERN_(HEATER_1_USES_MAX6675, temp_hotend[1].raw = READ_MAX6675(1));
@@ -1699,11 +1702,12 @@ void Temperature::updateTemperaturesFromRawValues() {
   raw_temps_ready = false;
 }
 
-//ga
+/*
 #if MAX6675_SEPARATE_SPI
   template<uint8_t MisoPin, uint8_t MosiPin, uint8_t SckPin> SoftSPI<MisoPin, MosiPin, SckPin> SPIclass<MisoPin, MosiPin, SckPin>::softSPI;
   SPIclass<MAX6675_DO_PIN, MOSI_PIN, MAX6675_SCK_PIN> max6675_spi;
 #endif
+*/
 
 // Init fans according to whether they're native PWM or Software PWM
 #ifdef ALFAWISE_UX0
@@ -1738,9 +1742,11 @@ void Temperature::updateTemperaturesFromRawValues() {
  * The manager is implemented by periodic calls to manage_heater()
  */
 void Temperature::init() {
-//ga
-  TERN_(MAX6675_0_IS_MAX31865, max31865_0.begin(MAX31865_2WIRE)); // MAX31865_2WIRE, MAX31865_3WIRE, MAX31865_4WIRE
-  TERN_(MAX6675_1_IS_MAX31865, max31865_1.begin(MAX31865_2WIRE));
+
+  #if HAS_MAX31865_TEMP
+    TERN_(MAX6675_0_IS_MAX31865, max31865_0.begin(MAX31865_2WIRE)); // MAX31865_2WIRE, MAX31865_3WIRE, MAX31865_4WIRE
+    TERN_(MAX6675_1_IS_MAX31865, max31865_1.begin(MAX31865_2WIRE));
+  #endif
   #if HAS_MAX31855_TEMP
     TERN_(MAX6675_0_IS_MAX31855, max31855_0.begin());
     TERN_(MAX6675_1_IS_MAX31855, max31855_1.begin());
@@ -1847,8 +1853,7 @@ void Temperature::init() {
     INIT_FAN_PIN(CONTROLLER_FAN_PIN);
   #endif
 
-  //ga
-  TERN_(MAX6675_SEPARATE_SPI, max6675_spi.init());
+  //TERN_(MAX6675_SEPARATE_SPI, max6675_spi.init());
 
   HAL_adc_init();
 
@@ -2238,7 +2243,7 @@ void Temperature::disable_all_heaters() {
 #endif // PROBING_HEATERS_OFF
 
 #if HAS_MAX6675
-//ga
+
   #ifndef THERMOCOUPLE_MAX_ERRORS
     #define THERMOCOUPLE_MAX_ERRORS 15
   #endif
@@ -2312,8 +2317,10 @@ void Temperature::disable_all_heaters() {
     #endif
     */
 
-    // Read a big-endian temperature value
     max6675_temp = 0;
+
+    /*
+    // Read a big-endian temperature value
     #if NO_THERMO_TEMPS
       for (uint8_t i = sizeof(max6675_temp); i--;) {
         max6675_temp |= TERN(MAX6675_SEPARATE_SPI, max6675_spi.receive(), spiRec());
@@ -2321,6 +2328,7 @@ void Temperature::disable_all_heaters() {
       }
         MAX6675_WRITE(HIGH); // disable TT_MAX6675
     #endif
+    */
 
     #if HAS_MAX31855_TEMP
       Adafruit_MAX31855 &max855ref = MAX6675_SEL(max31855_0, max31855_1);
@@ -2330,9 +2338,6 @@ void Temperature::disable_all_heaters() {
     #if HAS_MAX31865_TEMP
       Adafruit_MAX31865 &max865ref = MAX6675_SEL(max31865_0, max31865_1);
       max6675_temp = max865ref.readRTD_with_Fault();
-      #if ECHO_TEMP
-          SERIAL_ECHOLNPAIR("Max31865 RTD MSB:    ", max6675_temp >> 8 ,"    LSB:    ", max6675_temp & 0x00FF," "); 
-      #endif
     #endif
 
     #if HAS_MAX6675_TEMP
@@ -2345,7 +2350,6 @@ void Temperature::disable_all_heaters() {
     const uint8_t fault_31865 = TERN1(HAS_MAX31865_TEMP, (max865ref.readFault() & 0x3FU));
 
 
-  //ga
     if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK) && fault_31865) {
       max6675_errors[hindex]++;
       if (max6675_errors[hindex] > THERMOCOUPLE_MAX_ERRORS) {
@@ -2401,18 +2405,6 @@ void Temperature::disable_all_heaters() {
     #if MAX6675_HAS_MAX31865
       max6675_temp = (uint32_t(max6675_temp) * MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) >> 16;
     #endif
-  //ga
-    #if ECHO_TEMP
-      #if HAS_MAX31855 || HAS_MAX6675_TEMP
-        SERIAL_ECHOLNPAIR("Temp: ", max6675_temp ," "); 
-      #endif
-      #if HAS_MAX6675_TEMP
-        SERIAL_ECHOLNPAIR("Max6675 Temp in Celsius : ", max6675ref.readCelsius() ," "); 
-      #endif 
-      #if MAX6675_HAS_MAX31865 && ECHO_MAX31865_RESITANCE
-        SERIAL_ECHOLNPAIR("MAX31865 RTD readRTD_Resistance     : ", max865ref.readRTD_Resistance(MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) ,"      Calculated     : ", max6675_temp ," ");
-      #endif
-    #endif 
 
     MAX6675_TEMP(hindex) = max6675_temp;
 
@@ -2493,9 +2485,7 @@ void Temperature::readings_ready() {
       const int8_t tdir = temp_dir[e];
       if (tdir) {
         const int16_t rawtemp = temp_hotend[e].raw * tdir; // normal direction, +rawtemp, else -rawtemp
-        //ga NEEDED FOR TESTING ON THE BENCH WITH TEMPERATURE SENSORS
-        //const bool heater_on = (temp_hotend[e].target > 0       
-        const bool heater_on = (temp_hotend[e].target >= 0
+        const bool heater_on = (temp_hotend[e].target > 0
           || TERN0(PIDTEMP, temp_hotend[e].soft_pwm_amount) > 0
         );
         if (rawtemp > temp_range[e].raw_max * tdir) max_temp_error((heater_id_t)e);
