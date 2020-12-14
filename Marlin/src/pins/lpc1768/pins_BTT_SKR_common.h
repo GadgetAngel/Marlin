@@ -181,13 +181,13 @@
   //MAX6675 board configuration for Software SPI
   #ifdef MAX6675_SW_SPI
     //#define MAX6675_DO_PIN                    P1_15
-    #define MAX6675_MISO_PIN                  P1_15         
-    #define MAX6675_SCK_PIN                   P1_01         
-    //#define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN  
-    #define MAX6675_CS_PIN                    TEMP_SENSOR_0_PIN
+    //#define MAX6675_MISO_PIN                  P1_15         
+    //#define MAX6675_SCK_PIN                   P1_01         
+    #define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN  
+    //#define MAX6675_CS_PIN                    TEMP_SENSOR_0_PIN
     //enable the next lines below if you have two MAX6675 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN   
-    //#define MAX6675_CS2_PIN                   TEMP_1_PIN  
+    #define MAX6675_CS2_PIN                   TEMP_1_PIN  
   #endif 
 
   //MAX6675 board configuration for Hardware SPI 
@@ -202,12 +202,12 @@
     // MISO_PIN                         P0_08
     // MOSI_PIN                         P0_09
     //
-    //#define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN  
-    #define MAX6675_CS_PIN                    TEMP_SENSOR_0_PIN
+    #define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN  
+    //#define MAX6675_CS_PIN                    TEMP_SENSOR_0_PIN
     //enable the next lines below if you have two MAX6675 boards
     //uncomment the below line if you want MAX6675 Hardware SPI to be used
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
-    //#define MAX6675_CS2_PIN                   TEMP_1_PIN
+    #define MAX6675_CS2_PIN                   TEMP_1_PIN
   #endif 
 
 #endif
