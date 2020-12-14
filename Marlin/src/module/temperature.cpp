@@ -2297,10 +2297,10 @@ void Temperature::disable_all_heaters() {
     if (PENDING(ms, next_max6675_ms[hindex])) return int(MAX6675_TEMP(hindex));
     next_max6675_ms[hindex] = ms + MAX6675_HEAT_INTERVAL;
 
-/*
+    /*
     //
     // TODO: spiBegin, spiRec and spiInit doesn't work when soft spi is used.
-    ////ga
+    //
     #if !MAX6675_SEPARATE_SPI && NO_THERMO_TEMPS
       spiBegin();
       spiInit(MAX6675_SPEED_BITS);
@@ -2310,7 +2310,8 @@ void Temperature::disable_all_heaters() {
       MAX6675_WRITE(LOW);  // enable TT_MAX6675
       DELAY_NS(100);       // Ensure 100ns delay
     #endif
-*/
+    */
+
     // Read a big-endian temperature value
     max6675_temp = 0;
     #if NO_THERMO_TEMPS
