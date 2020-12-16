@@ -57,8 +57,8 @@
 #define Y_DIAG_PIN                          PE12  // Y-
 #define Z_DIAG_PIN                          PG8   // Z-
 #define E0_DIAG_PIN                         PE15  // E0
-#define E1_DIAG_PIN                         PE10  // E1
-#define E2_DIAG_PIN                         PG5   // E2
+//#define E1_DIAG_PIN                         PE10  // E1
+//#define E2_DIAG_PIN                         PG5   // E2
 
 //
 // Limit Switches
@@ -125,23 +125,23 @@
 #define X_STEP_PIN                          PE9
 #define X_DIR_PIN                           PF1
 #define X_ENABLE_PIN                        PF2
-#ifndef X_CS_PIN
-  #define X_CS_PIN                          PA15
-#endif
+//#ifndef X_CS_PIN
+  //#define X_CS_PIN                          PA15
+//#endif
 
 #define Y_STEP_PIN                          PE11
 #define Y_DIR_PIN                           PE8
 #define Y_ENABLE_PIN                        PD7
-#ifndef Y_CS_PIN
-  #define Y_CS_PIN                          PB8
-#endif
+//#ifndef Y_CS_PIN
+  //#define Y_CS_PIN                          PB8
+//#endif
 
 #define Z_STEP_PIN                          PE13
 #define Z_DIR_PIN                           PC2
 #define Z_ENABLE_PIN                        PC0
-#ifndef Z_CS_PIN
-  #define Z_CS_PIN                          PB9
-#endif
+//#ifndef Z_CS_PIN
+  //#define Z_CS_PIN                          PB9
+//#endif
 
 #define E0_STEP_PIN                         PE14
 #define E0_DIR_PIN                          PA0
@@ -149,21 +149,21 @@
 #ifndef E0_CS_PIN
   #define E0_CS_PIN                         PB3
 #endif
-
+/*
 #define E1_STEP_PIN                         PD15
 #define E1_DIR_PIN                          PE7
 #define E1_ENABLE_PIN                       PA3
-#ifndef E1_CS_PIN
-  #define E1_CS_PIN                         PG15
-#endif
+//#ifndef E1_CS_PIN
+  //#define E1_CS_PIN                         PG15
+//#endif
 
 #define E2_STEP_PIN                         PD13
 #define E2_DIR_PIN                          PG9
 #define E2_ENABLE_PIN                       PF0
-#ifndef E2_CS_PIN
-  #define E2_CS_PIN                         PG12
-#endif
-
+//#ifndef E2_CS_PIN
+  //#define E2_CS_PIN                         PG12
+//#endif
+*/
 //
 // Software SPI pins for TMC2130 stepper drivers
 //
@@ -210,14 +210,14 @@
   #define Z_SERIAL_TX_PIN                   PE1
   #define Z_SERIAL_RX_PIN                   PE1
 
-  #define E0_SERIAL_TX_PIN                  PD4
-  #define E0_SERIAL_RX_PIN                  PD4
+  //#define E0_SERIAL_TX_PIN                  PD4
+  //#define E0_SERIAL_RX_PIN                  PD4
 
-  #define E1_SERIAL_TX_PIN                  PD1
-  #define E1_SERIAL_RX_PIN                  PD1
+  //#define E1_SERIAL_TX_PIN                  PD1
+  //#define E1_SERIAL_RX_PIN                  PD1
 
-  #define E2_SERIAL_TX_PIN                  PD6
-  #define E2_SERIAL_RX_PIN                  PD6
+  //#define E2_SERIAL_TX_PIN                  PD6
+  //#define E2_SERIAL_RX_PIN                  PD6
 
   // Reduce baud rate to improve software serial reliability
   #define TMC_BAUD_RATE                    19200
@@ -226,10 +226,165 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                          PF4   // T1 <-> E0
-#define TEMP_1_PIN                          PF5   // T2 <-> E1
-#define TEMP_2_PIN                          PF6   // T3 <-> E2
+//#define TEMP_0_PIN                          PF4   // T1 <-> E0
+//#define TEMP_1_PIN                          PF5   // T2 <-> E1
+//#define TEMP_2_PIN                          PF6   // T3 <-> E2
 #define TEMP_BED_PIN                        PF3   // T0 <-> Bed
+
+//ga
+// GADGETANGEL SECTION Begins ==============================================>>
+//
+// SET ONLY ONE of theses variables or NONE
+#define TEMP_0_PIN          PA10    //SW PG9  //HW PA10 PA9
+#define TEMP_SENSOR_0_PIN   PA10
+#define ECHO_TEMP 1
+#define ECHO_MAX31865_RESITANCE 0
+//#define TEMP_SENSOR_1_PIN   P0_03
+//
+//#define MAX31865_SW_SPI   //-5
+#define MAX31865_HW_SPI   //-5
+//#define MAX31855_SW_SPI     //-3
+//#define MAX31855_HW_SPI   //-3
+//#define MAX6675_SW_SPI    //-2
+//#define MAX6675_HW_SPI    //-2
+
+#ifndef MAX6675_SS_PIN
+  #ifdef MAX31865_SW_SPI
+    //#define MAX6675_DO_PIN                    PD13
+    #define MAX31865_MISO_PIN                 PD13
+    //#define MAX6675_SCK_PIN                   PG12
+    #define MAX31865_SCK_PIN                  PG12
+    //
+    #define MAX31865_MOSI_PIN                 PA9
+    //
+    #define MAX31865_CS_PIN                   TEMP_0_PIN
+    //#define MAX6675_SS_PIN                    PG9
+    // enable the below two lines if you have a second Adafruit MAX31865 in software SPI mode
+    //#define MAX31865_CS2_PIN                  TEMP_1_PIN
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+  #endif
+
+  #ifdef MAX31865_HW_SPI
+    // SKR V1.4 or SKR V1.4 Turbo or SKR v1.3
+    // if SD_CONNECTION_IS(LCD)
+    // SCK_PIN                          P0_15
+    // MISO_PIN                         P0_17
+    // MOSI_PIN                         P0_18
+    // if SD_CONNECTION_IS(ONBOARD)
+    // SCK_PIN                          P0_07
+    // MISO_PIN                         P0_08
+    // MOSI_PIN                         P0_09
+    //
+    // For SKR PRO V1.1 board
+    // if SD_CONNECTION_IS(LCD)
+    //#define PIN_SPI_MISO            PB14
+    //#define PIN_SPI_SCK             PB13
+    //#define PIN_SPI_MOSI            PB15
+    //
+    //#define MAX6675_SS_PIN                    PA10      //P0_26 SPI header //
+    // below forces hardware spi
+    ////#define MAX31865_CS_PIN                   MAX6675_SS_PIN  //forces Hardware SPI
+    #define MAX31865_CS_PIN                   TEMP_0_PIN
+    //enable the below two lines if you have a second Adafruit MAX31865 board on hardware SPI
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN      //P1_00 - PWRDET
+    ////#define MAX31865_CS2_PIN                  MAX6675_SS2_PIN //forces Hardware SPI for the second MAX31865 board
+    //#define MAX31865_CS2_PIN                  TEMP_1_PIN
+  #endif
+
+  //MAX31855 board configuration for Software SPI
+  #ifdef MAX31855_SW_SPI
+    //#define MAX6675_DO_PIN                    PD13       //P1_15 is E1_STEP_PIN
+    #define MAX31855_MISO_PIN               PD13
+    //#define MAX6675_SCK_PIN                   PG12       //P1_01 is E1_SERIAL_RX_PIN
+    #define MAX31855_SCK_PIN                PG12  //PG12
+    //#define TEMP_0_PIN                        PF7
+    //#define MAX6675_SS_PIN                    TEMP_0_PIN
+    //#define MAX6675_CS_PIN                    TEMP_0_PIN
+    //#define MAX6675_CS_PIN                    TEMP_SENSOR_0_PIN  //P1_14 is E1_DIR_PIN
+    #define MAX31855_CS_PIN                 PG9
+    //#define MAX31855_CS_PIN                 TEMP_SENSOR_0_PIN
+    //enable the next lines below if you have two MAX31855 boards
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+    //#define MAX31855_CS2_PIN                  TEMP_1_PIN
+    //
+  #endif
+
+  //MAX31855 board configuration for Hardware SPI
+  #ifdef MAX31855_HW_SPI
+    // SKR V1.4 or SKR V1.4 Turbo or SKR v1.3
+    // if SD_CONNECTION_IS(LCD)
+    // SCK_PIN                          P0_15
+    // MISO_PIN                         P0_17
+    // MOSI_PIN                         P0_18
+    // if SD_CONNECTION_IS(ONBOARD)
+    // SCK_PIN                          P0_07
+    // MISO_PIN                         P0_08
+    // MOSI_PIN                         P0_09
+    //
+    // For SKR PRO V1.1 board
+    // if SD_CONNECTION_IS(LCD)
+    //#define PIN_SPI_MISO            PB14
+    //#define PIN_SPI_SCK             PB13
+    //#define PIN_SPI_MOSI            PB15
+    //
+    //uncomment the below line if you want MAX6675 Hardware SPI to be used
+    //#define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN
+    //#define MAX6675_SS_PIN                  TEMP_0_PIN
+    #define MAX6675_SS_PIN                  PA10
+    //uncomment the below line if you want Adafruit MAX31855 Hardware SPI to be used
+    //#define MAX31855_CS_PIN                   TEMP_SENSOR_0_PIN
+    //#define MAX31855_CS_PIN                   TEMP_0_PIN
+    //
+    //enable the next lines below if you have two MAX31855 boards
+    //
+    //uncomment the below line if you want MAX6675 Hardware SPI to be used
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+    //uncomment the below line if you want Adafruit MAX31855 Hardware SPI to be used
+    //#define MAX31855_CS2_PIN                  TEMP_1_PIN
+  #endif
+
+  //MAX6675 board configuration for Software SPI
+  #ifdef MAX6675_SW_SPI
+    //#define MAX6675_DO_PIN                    PD13
+    #define MAX6675_MISO_PIN                  PD13
+    #define MAX6675_SCK_PIN                   PG12
+    //#define MAX6675_SS_PIN                    TEMP_0_PIN
+    #define MAX6675_CS_PIN                    TEMP_0_PIN
+    //enable the next lines below if you have two MAX6675 boards
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+    //#define MAX6675_CS2_PIN                   TEMP_1_PIN
+  #endif
+
+  //MAX6675 board configuration for Hardware SPI
+  #ifdef MAX6675_HW_SPI
+    // SKR V1.4 or SKR V1.4 Turbo or SKR v1.3
+    // if SD_CONNECTION_IS(LCD)
+    // SCK_PIN                          P0_15
+    // MISO_PIN                         P0_17
+    // MOSI_PIN                         P0_18
+    // if SD_CONNECTION_IS(ONBOARD)
+    // SCK_PIN                          P0_07
+    // MISO_PIN                         P0_08
+    // MOSI_PIN                         P0_09
+    //
+    // For SKR PRO V1.1 board
+    // if SD_CONNECTION_IS(LCD)
+    //#define PIN_SPI_MISO            PB14
+    //#define PIN_SPI_SCK             PB13
+    //#define PIN_SPI_MOSI            PB15
+    //
+    //#define MAX6675_SS_PIN                    TEMP_0_PIN
+    #define MAX6675_CS_PIN                    PA9
+    //enable the next lines below if you have two MAX6675 boards
+    //uncomment the below line if you want MAX6675 Hardware SPI to be used
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+    //#define MAX6675_CS2_PIN                   TEMP_1_PIN
+  #endif
+
+#endif
+
+//GADGETANGEL SECTION Ends ==============================================>>
+
 
 //
 // Heaters / Fans

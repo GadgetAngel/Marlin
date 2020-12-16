@@ -485,7 +485,7 @@
 
 //
 // Compatibility layer for MAX (SPI) temp boards
-////ga
+//
 #if PIN_EXISTS(MAX6675_SS)
   #if MAX6675_0_IS_MAX31855
     #define MAX31855_CS_PIN MAX6675_SS_PIN
@@ -523,6 +523,14 @@
     #define MAX31865_SCK_PIN MAX6675_SCK_PIN
   #endif
 #endif
+
+//
+//Compatability Layer for MB with Large PIN Mappings
+//
+#if ANY(MCU_LPC1769, STM32F407IX)
+  #define LARGE_PINMAP 1
+#endif
+
 
 #if TEMP_SENSOR_2 == -4
   #define HEATER_2_USES_AD8495 1

@@ -1884,11 +1884,11 @@ static_assert(hbm[Z_AXIS] >= 0, "HOMING_BUMP_MM.Z must be greater than or equal 
 
 /**
  * Test Heater, Temp Sensor, and Extruder Pins
- */
+ *///ga
 #if !HAS_HEATER_0 && EXTRUDERS
   #error "HEATER_0_PIN not defined for this board."
-#elif !ANY_PIN(TEMP_0, MAX6675_CS)
-  #error "TEMP_0_PIN or MAX6675_CS_PIN not defined for this board."
+#elif !ANY_PIN(TEMP_0, MAX6675_CS, MAX31855_CS, MAX31865_CS)
+  #error "TEMP_0_PIN, MAX6675_CS_PIN, MAX31855_CS_PIN, or MAX31865_CS_PIN is not defined for this board."
 #elif ((defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)) && !PINS_EXIST(E0_STEP, E0_DIR))
   #error "E0_STEP_PIN or E0_DIR_PIN not defined for this board."
 #elif ( !(defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)) && (!PINS_EXIST(E0_STEP, E0_DIR) || !HAS_E0_ENABLE))

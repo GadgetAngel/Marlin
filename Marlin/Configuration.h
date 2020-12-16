@@ -128,7 +128,7 @@
 //ga
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_BTT_SKR_V1_4_TURBO  //BOARD_RAMPS_14_EFB  BOARD_BTT_SKR_V1_4  BOARD_BTT_SKR_V1_4_TURBO BOARD_BTT_SKR_PRO_V1_1  BOARD_BTT_GTR_V1_0  BOARD_BTT_SKR_MINI_E3_V1_2 BOARD_CREALITY_V427
+  #define MOTHERBOARD BOARD_BTT_GTR_V1_0  //BOARD_RAMPS_14_EFB  BOARD_BTT_SKR_V1_4  BOARD_BTT_SKR_V1_4_TURBO BOARD_BTT_SKR_PRO_V1_1  BOARD_BTT_GTR_V1_0  BOARD_BTT_SKR_MINI_E3_V1_2 BOARD_CREALITY_V427
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
@@ -143,7 +143,7 @@
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
 //ga
-#define EXTRUDERS 2
+#define EXTRUDERS 1
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -410,7 +410,7 @@
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  *///ga
 #define TEMP_SENSOR_0 -5
-#define TEMP_SENSOR_1 -5
+#define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
@@ -585,7 +585,7 @@
  * If you get "Thermal Runaway" or "Heating failed" errors the
  * details can be tuned in Configuration_adv.h
  */
-
+//ga
 //#define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
 //#define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
 //#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
