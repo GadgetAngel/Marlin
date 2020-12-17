@@ -307,7 +307,7 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-//#define TEMP_0_PIN          PD8    //SW PI10  //HW PD8
+#define TEMP_0_PIN          PH13    //SW PI10  //HW PD8
 //#define TEMP_SENSOR_0_PIN   PH13
 #define ECHO_TEMP 1
 #define ECHO_MAX31865_RESITANCE 0
@@ -317,8 +317,8 @@
 //#define MAX31865_HW_SPI   //-5
 //#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
-//#define MAX6675_SW_SPI    //-2
-#define MAX6675_HW_SPI    //-2
+#define MAX6675_SW_SPI    //-2
+//#define MAX6675_HW_SPI    //-2
 
 #ifndef MAX6675_SS_PIN
   #ifdef MAX31865_SW_SPI
@@ -476,24 +476,24 @@
   #ifdef MAX6675_SW_SPI
     #define THERMO_SCK_PIN                      PI1   // SCK
     #define THERMO_DO_PIN                       PI2   // MISO
-    #define THERMO_CS1_PIN                      PH9   // CS1
-    #define THERMO_CS2_PIN                      PH2   // CS2
+    //#define THERMO_CS1_PIN                      PH9   // CS1
+    //#define THERMO_CS2_PIN                      PH2   // CS2
 
-    #define MAX6675_SS_PIN            THERMO_CS1_PIN
-    #define MAX6675_SS2_PIN           THERMO_CS2_PIN
-    #define MAX6675_SCK_PIN           THERMO_SCK_PIN
-    #define MAX6675_DO_PIN             THERMO_DO_PIN
+    //#define MAX6675_SS_PIN            THERMO_CS1_PIN
+    //#define MAX6675_SS2_PIN           THERMO_CS2_PIN
+    //#define MAX6675_SCK_PIN           THERMO_SCK_PIN
+    //#define MAX6675_DO_PIN             THERMO_DO_PIN
     //
-    /*
-    //#define MAX6675_DO_PIN                    PD13
-    #define MAX6675_MISO_PIN                  PD13
-    #define MAX6675_SCK_PIN                   PG12
-    //#define MAX6675_SS_PIN                    TEMP_0_PIN
-    #define MAX6675_CS_PIN                    TEMP_0_PIN
+    ///*
+    #define MAX6675_DO_PIN                    THERMO_DO_PIN
+    //#define MAX6675_MISO_PIN                  THERMO_DO_PIN
+    #define MAX6675_SCK_PIN                   THERMO_SCK_PIN
+    #define MAX6675_SS_PIN                    PH13
+    //#define MAX6675_CS_PIN                    TEMP_0_PIN
     //enable the next lines below if you have two MAX6675 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
     //#define MAX6675_CS2_PIN                   TEMP_1_PIN
-    */
+    //*/
   #endif
 
   //MAX6675 board configuration for Hardware SPI
@@ -528,8 +528,8 @@
     //#define PIN_SPI_SCK             PB13
     //#define PIN_SPI_SS              PB12
     //
-    //#define MAX6675_SS_PIN                    TEMP_0_PIN
-    #define MAX6675_CS_PIN                    PD9
+    #define MAX6675_SS_PIN                    TEMP_0_PIN
+    //#define MAX6675_CS_PIN                    PD9
     //enable the next lines below if you have two MAX6675 boards
     //uncomment the below line if you want MAX6675 Hardware SPI to be used
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN

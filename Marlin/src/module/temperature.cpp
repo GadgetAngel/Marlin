@@ -2431,9 +2431,6 @@ void Temperature::disable_all_heaters() {
       #if HAS_MAX31855_TEMP || HAS_MAX6675_TEMP
         SERIAL_ECHOLNPAIR("Temp: ", max6675_temp ," ");
       #endif
-      #if HAS_MAX6675_TEMP
-        SERIAL_ECHOLNPAIR("Max6675 Temp in Celsius : ", max6675ref.readCelsius() ," ");
-      #endif
       #if HAS_MAX31865_TEMP && ECHO_MAX31865_RESITANCE
         SERIAL_ECHOLNPAIR("MAX31865 RTD readRTD_Resistance     : ", max865ref.readRTD_Resistance(MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) ,"      Calculated     : ", max6675_temp ," ");
       #endif
