@@ -308,14 +308,14 @@
 //
 // SET ONLY ONE of theses variables or NONE
 //#define TEMP_0_PIN          PD0    //SW PI10  //HW PD8
-//#define TEMP_SENSOR_0_PIN   PD8
+//#define TEMP_SENSOR_0_PIN   PH13
 #define ECHO_TEMP 1
 #define ECHO_MAX31865_RESITANCE 0
 //#define TEMP_SENSOR_1_PIN   P0_03
 //
-#define MAX31865_SW_SPI   //-5
+//#define MAX31865_SW_SPI   //-5
 //#define MAX31865_HW_SPI   //-5
-//#define MAX31855_SW_SPI     //-3
+#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
 //#define MAX6675_SW_SPI    //-2
 //#define MAX6675_HW_SPI    //-2
@@ -333,15 +333,15 @@
     //#define MAX6675_SCK_PIN           THERMO_SCK_PIN
     //#define MAX6675_DO_PIN             THERMO_DO_PIN
     ///*
-    //#define MAX6675_DO_PIN                    PI9
-    #define MAX31865_MISO_PIN                 PI9
-    //#define MAX6675_SCK_PIN                   PI8
-    #define MAX31865_SCK_PIN                  PI8
+    #define MAX6675_DO_PIN                    PH13
+    //#define MAX31865_MISO_PIN                 PI9
+    #define MAX6675_SCK_PIN                   PC12
+    //#define MAX31865_SCK_PIN                  PI8
     //
     #define MAX31865_MOSI_PIN                 PI10
     //
-    #define MAX31865_CS_PIN                   PH13
-    //#define MAX6675_SS_PIN                    PI10
+    //#define MAX31865_CS_PIN                   PH13
+    #define MAX6675_SS_PIN                    PD1
     // enable the below two lines if you have a second Adafruit MAX31865 in software SPI mode
     //#define MAX31865_CS2_PIN                  TEMP_1_PIN
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
@@ -383,10 +383,10 @@
     //#define MISO_PIN                PB14
     //#define SCK_PIN                 PB13
     //#define MOSI_PIN                PB15
-    //#define MAX6675_SS_PIN                    PD8
+    #define MAX6675_SS_PIN                    TEMP_0_PIN
     // below forces hardware spi
     ////#define MAX31865_CS_PIN                   MAX6675_SS_PIN  //forces Hardware SPI
-    #define MAX31865_CS_PIN                   TEMP_0_PIN
+    //#define MAX31865_CS_PIN                   TEMP_0_PIN
     //enable the below two lines if you have a second Adafruit MAX31865 board on hardware SPI
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN      //P1_00 - PWRDET
     ////#define MAX31865_CS2_PIN                  MAX6675_SS2_PIN //forces Hardware SPI for the second MAX31865 board
@@ -395,30 +395,30 @@
 
   //MAX31855 board configuration for Software SPI
   #ifdef MAX31855_SW_SPI
-    #define THERMO_SCK_PIN                      PI1   // SCK
-    #define THERMO_DO_PIN                       PI2   // MISO
-    #define THERMO_CS1_PIN                      PH9   // CS1
-    #define THERMO_CS2_PIN                      PH2   // CS2
+    //#define THERMO_SCK_PIN                      PI1   // SCK
+    //#define THERMO_DO_PIN                       PI2   // MISO
+    //#define THERMO_CS1_PIN                      PH9   // CS1
+    //#define THERMO_CS2_PIN                      PH2   // CS2
 
-    #define MAX6675_SS_PIN            THERMO_CS1_PIN
-    #define MAX6675_SS2_PIN           THERMO_CS2_PIN
-    #define MAX6675_SCK_PIN           THERMO_SCK_PIN
-    #define MAX6675_DO_PIN             THERMO_DO_PIN
-    /*
+    //#define MAX6675_SS_PIN            THERMO_CS1_PIN
+    //#define MAX6675_SS2_PIN           THERMO_CS2_PIN
+    //#define MAX6675_SCK_PIN           THERMO_SCK_PIN
+    //#define MAX6675_DO_PIN             THERMO_DO_PIN
+    ///*
     //#define MAX6675_DO_PIN                    PD13       //P1_15 is E1_STEP_PIN
-    #define MAX31855_MISO_PIN               PD13
+    #define MAX31855_MISO_PIN               PD0
     //#define MAX6675_SCK_PIN                   PG12       //P1_01 is E1_SERIAL_RX_PIN
-    #define MAX31855_SCK_PIN                PG12  //PG12
+    #define MAX31855_SCK_PIN                PC12  //PG12
     //#define TEMP_0_PIN                        PF7
     //#define MAX6675_SS_PIN                    TEMP_0_PIN
     //#define MAX6675_CS_PIN                    TEMP_0_PIN
     //#define MAX6675_CS_PIN                    TEMP_SENSOR_0_PIN  //P1_14 is E1_DIR_PIN
-    #define MAX31855_CS_PIN                 PG9
+    #define MAX31855_CS_PIN                 PH13
     //#define MAX31855_CS_PIN                 TEMP_SENSOR_0_PIN
     //enable the next lines below if you have two MAX31855 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
     //#define MAX31855_CS2_PIN                  TEMP_1_PIN
-    */
+    //*/
     //
   #endif
 
