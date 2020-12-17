@@ -400,26 +400,27 @@
     #define THERMO_CS1_PIN                      PH13   // CS1
     //#define THERMO_CS1_PIN                      PH9   // CS1
     //#define THERMO_CS2_PIN                      PH2   // CS2
-
+    /*
     #define MAX6675_SS_PIN            THERMO_CS1_PIN
     //#define MAX6675_SS2_PIN           THERMO_CS2_PIN
     #define MAX6675_DO_PIN             THERMO_DO_PIN
     #define MAX6675_SCK_PIN           THERMO_SCK_PIN
-    /*
-    //#define MAX6675_DO_PIN                    PD13       //P1_15 is E1_STEP_PIN
-    #define MAX31855_MISO_PIN               PD0
-    //#define MAX6675_SCK_PIN                   PG12       //P1_01 is E1_SERIAL_RX_PIN
-    #define MAX31855_SCK_PIN                PC12  //PG12
+    */
+    ///*
+    //#define MAX6675_DO_PIN                    THERMO_DO_PIN       //P1_15 is E1_STEP_PIN
+    #define MAX31855_MISO_PIN               THERMO_DO_PIN
+    //#define MAX6675_SCK_PIN                   THERMO_SCK_PIN       //P1_01 is E1_SERIAL_RX_PIN
+    #define MAX31855_SCK_PIN                THERMO_SCK_PIN  //PG12
     //#define TEMP_0_PIN                        PF7
     //#define MAX6675_SS_PIN                    TEMP_0_PIN
     //#define MAX6675_CS_PIN                    TEMP_0_PIN
-    //#define MAX6675_CS_PIN                    TEMP_SENSOR_0_PIN  //P1_14 is E1_DIR_PIN
-    #define MAX31855_CS_PIN                 PH13
+    //#define MAX6675_CS_PIN                    THERMO_CS1_PIN  //P1_14 is E1_DIR_PIN
+    #define MAX31855_CS_PIN                 THERMO_CS1_PIN
     //#define MAX31855_CS_PIN                 TEMP_SENSOR_0_PIN
     //enable the next lines below if you have two MAX31855 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
     //#define MAX31855_CS2_PIN                  TEMP_1_PIN
-    */
+    //*/
     //
   #endif
 
