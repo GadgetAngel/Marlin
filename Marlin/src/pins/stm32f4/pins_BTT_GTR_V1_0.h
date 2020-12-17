@@ -307,7 +307,7 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-//#define TEMP_0_PIN          PD0    //SW PI10  //HW PD8
+//#define TEMP_0_PIN          PD8    //SW PI10  //HW PD8
 //#define TEMP_SENSOR_0_PIN   PH13
 #define ECHO_TEMP 1
 #define ECHO_MAX31865_RESITANCE 0
@@ -315,10 +315,10 @@
 //
 //#define MAX31865_SW_SPI   //-5
 //#define MAX31865_HW_SPI   //-5
-#define MAX31855_SW_SPI     //-3
+//#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
 //#define MAX6675_SW_SPI    //-2
-//#define MAX6675_HW_SPI    //-2
+#define MAX6675_HW_SPI    //-2
 
 #ifndef MAX6675_SS_PIN
   #ifdef MAX31865_SW_SPI
@@ -407,14 +407,14 @@
     #define MAX6675_SCK_PIN           THERMO_SCK_PIN
     */
     ///*
-    //#define MAX6675_DO_PIN                    THERMO_DO_PIN       //P1_15 is E1_STEP_PIN
+    //#define MAX6675_DO_PIN                    THERMO_DO_PIN
     #define MAX31855_MISO_PIN               THERMO_DO_PIN
-    //#define MAX6675_SCK_PIN                   THERMO_SCK_PIN       //P1_01 is E1_SERIAL_RX_PIN
+    //#define MAX6675_SCK_PIN                   THERMO_SCK_PIN
     #define MAX31855_SCK_PIN                THERMO_SCK_PIN  //PG12
     //#define TEMP_0_PIN                        PF7
     //#define MAX6675_SS_PIN                    TEMP_0_PIN
     //#define MAX6675_CS_PIN                    TEMP_0_PIN
-    //#define MAX6675_CS_PIN                    THERMO_CS1_PIN  //P1_14 is E1_DIR_PIN
+    //#define MAX6675_CS_PIN                    THERMO_CS1_PIN
     #define MAX31855_CS_PIN                 THERMO_CS1_PIN
     //#define MAX31855_CS_PIN                 TEMP_SENSOR_0_PIN
     //enable the next lines below if you have two MAX31855 boards
@@ -459,10 +459,10 @@
     //uncomment the below line if you want MAX6675 Hardware SPI to be used
     //#define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN
     //#define MAX6675_SS_PIN                  TEMP_0_PIN
-    #define MAX6675_SS_PIN                  PA10
+    //#define MAX6675_SS_PIN                  PD8
     //uncomment the below line if you want Adafruit MAX31855 Hardware SPI to be used
     //#define MAX31855_CS_PIN                   TEMP_SENSOR_0_PIN
-    //#define MAX31855_CS_PIN                   TEMP_0_PIN
+    #define MAX31855_CS_PIN                   TEMP_0_PIN
     //
     //enable the next lines below if you have two MAX31855 boards
     //
@@ -529,7 +529,7 @@
     //#define PIN_SPI_SS              PB12
     //
     //#define MAX6675_SS_PIN                    TEMP_0_PIN
-    #define MAX6675_CS_PIN                    PA9
+    #define MAX6675_CS_PIN                    PD9
     //enable the next lines below if you have two MAX6675 boards
     //uncomment the below line if you want MAX6675 Hardware SPI to be used
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
