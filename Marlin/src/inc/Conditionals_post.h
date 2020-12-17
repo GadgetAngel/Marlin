@@ -391,7 +391,6 @@
 /**
  * Temp Sensor defines
  */
-//ga
 #define ANY_TEMP_SENSOR_IS(n) (TEMP_SENSOR_0 == (n) || TEMP_SENSOR_1 == (n) || TEMP_SENSOR_2 == (n) || TEMP_SENSOR_3 == (n) || TEMP_SENSOR_4 == (n) || TEMP_SENSOR_5 == (n) || TEMP_SENSOR_6 == (n) || TEMP_SENSOR_7 == (n) || TEMP_SENSOR_BED == (n) || TEMP_SENSOR_PROBE == (n) || TEMP_SENSOR_CHAMBER == (n))
 
 #if ANY_TEMP_SENSOR_IS(1000)
@@ -526,7 +525,7 @@
 
 //
 //Compatability Layer for MB with Large PIN Mappings
-//
+////ga
 #if ANY(MCU_LPC1769, STM32F407IX)
   #define LARGE_PINMAP 1
 #endif
