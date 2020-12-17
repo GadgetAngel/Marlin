@@ -307,7 +307,7 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-//#define TEMP_0_PIN          PD0    //SW PI10  //HW PD8
+#define TEMP_0_PIN          PD0    //SW PI10  //HW PD8
 //#define TEMP_SENSOR_0_PIN   PH13
 #define ECHO_TEMP 1
 #define ECHO_MAX31865_RESITANCE 0
@@ -488,8 +488,8 @@
     #define MAX6675_DO_PIN                    PD1
     //#define MAX6675_MISO_PIN                  THERMO_DO_PIN
     #define MAX6675_SCK_PIN                   PC12
-    #define MAX6675_SS_PIN                    PD0
-    //#define MAX6675_CS_PIN                    TEMP_0_PIN
+    //#define MAX6675_SS_PIN                    PD0
+    #define MAX6675_CS_PIN                    TEMP_0_PIN
     //enable the next lines below if you have two MAX6675 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
     //#define MAX6675_CS2_PIN                   TEMP_1_PIN
