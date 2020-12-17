@@ -56,6 +56,9 @@
       #if MAX31855_USES_SW_SPI
         , MAX31855_MISO_PIN, MAX31855_SCK_PIN  // For software SPI also set MISO/SCK
       #endif
+      #if ENABLED(LARGE_PINMAP)
+        , 0x01
+      #endif
     );
   #endif
   #if MAX6675_1_IS_MAX31855 && PIN_EXISTS(MAX31855_CS2)
@@ -63,6 +66,9 @@
     Adafruit_MAX31855 max31855_1 = Adafruit_MAX31855(MAX31855_CS2_PIN
       #if MAX31855_USES_SW_SPI
         , MAX31855_MISO_PIN, MAX31855_SCK_PIN  // For software SPI also set MISO/SCK
+      #endif
+      #if ENABLED(LARGE_PINMAP)
+        , 0x01
       #endif
     );
   #endif
@@ -76,23 +82,23 @@
   #if MAX6675_0_IS_MAX31865 && PIN_EXISTS(MAX31865_CS)
     #define HAS_MAX31865_TEMP 1
       Adafruit_MAX31865 max31865_0 = Adafruit_MAX31865(MAX31865_CS_PIN
-          #if MAX31865_USES_SW_SPI && PIN_EXISTS(MAX31865_MOSI)
-            , MAX31865_MOSI_PIN, MAX31865_MISO_PIN, MAX31865_SCK_PIN  // For software SPI also set MOSI/MISO/SCK
-          #endif
-          #if ENABLED(LARGE_PINMAP)
-            , 0x01
-          #endif
+        #if MAX31865_USES_SW_SPI && PIN_EXISTS(MAX31865_MOSI)
+          , MAX31865_MOSI_PIN, MAX31865_MISO_PIN, MAX31865_SCK_PIN  // For software SPI also set MOSI/MISO/SCK
+        #endif
+        #if ENABLED(LARGE_PINMAP)
+          , 0x01
+        #endif
       );
   #endif
   #if MAX6675_1_IS_MAX31865 && PIN_EXISTS(MAX31865_CS2)
     #define HAS_MAX31865_TEMP 1
     Adafruit_MAX31865 max31865_1 = Adafruit_MAX31865(MAX31865_CS2_PIN
       #if MAX31865_USES_SW_SPI && PIN_EXISTS(MAX31865_MOSI)
-        , MAX31865_MOSI_PIN, MAX31865_MISO_PIN, MAX31865_SCK_PIN // For software SPI also set MOSI/MISO/SCK
+        , MAX31865_MOSI_PIN, MAX31865_MISO_PIN, MAX31865_SCK_PIN  // For software SPI also set MOSI/MISO/SCK
       #endif
-          #if ENABLED(LARGE_PINMAP)
-            , LARGE_PINMAP
-          #endif
+      #if ENABLED(LARGE_PINMAP)
+          , 0x01
+      #endif
     );
   #endif
 #endif
@@ -108,6 +114,9 @@
       #if MAX6675_USES_SW_SPI
         , MAX6675_MISO_PIN, MAX6675_SCK_PIN   // For software SPI also set MISO/SCK
       #endif
+      #if ENABLED(LARGE_PINMAP)
+        , 0x01
+      #endif
     );
   #endif
   #if MAX6675_1_IS_MAX6675 && PIN_EXISTS(MAX6675_CS2)
@@ -115,6 +124,9 @@
     MAX6675 max6675_1 = MAX6675(MAX6675_CS2_PIN
       #if MAX6675_USES_SW_SPI
         , MAX6675_MISO_PIN, MAX6675_SCK_PIN   // For software SPI also set MISO/SCK
+      #endif
+      #if ENABLED(LARGE_PINMAP)
+        , 0x01
       #endif
     );
   #endif

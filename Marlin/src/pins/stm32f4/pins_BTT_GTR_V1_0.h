@@ -395,16 +395,17 @@
 
   //MAX31855 board configuration for Software SPI
   #ifdef MAX31855_SW_SPI
-    //#define THERMO_SCK_PIN                      PI1   // SCK
-    //#define THERMO_DO_PIN                       PI2   // MISO
+    #define THERMO_SCK_PIN                      PI1   // SCK
+    #define THERMO_DO_PIN                       PI2   // MISO
+    #define THERMO_CS1_PIN                      PH13   // CS1
     //#define THERMO_CS1_PIN                      PH9   // CS1
     //#define THERMO_CS2_PIN                      PH2   // CS2
 
-    //#define MAX6675_SS_PIN            THERMO_CS1_PIN
+    #define MAX6675_SS_PIN            THERMO_CS1_PIN
     //#define MAX6675_SS2_PIN           THERMO_CS2_PIN
-    //#define MAX6675_SCK_PIN           THERMO_SCK_PIN
-    //#define MAX6675_DO_PIN             THERMO_DO_PIN
-    ///*
+    #define MAX6675_DO_PIN             THERMO_DO_PIN
+    #define MAX6675_SCK_PIN           THERMO_SCK_PIN
+    /*
     //#define MAX6675_DO_PIN                    PD13       //P1_15 is E1_STEP_PIN
     #define MAX31855_MISO_PIN               PD0
     //#define MAX6675_SCK_PIN                   PG12       //P1_01 is E1_SERIAL_RX_PIN
@@ -418,7 +419,7 @@
     //enable the next lines below if you have two MAX31855 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
     //#define MAX31855_CS2_PIN                  TEMP_1_PIN
-    //*/
+    */
     //
   #endif
 
