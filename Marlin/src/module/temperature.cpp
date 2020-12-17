@@ -57,7 +57,7 @@
         , MAX31855_MISO_PIN, MAX31855_SCK_PIN  // For software SPI also set MISO/SCK
       #endif
       #if ENABLED(LARGE_PINMAP)
-        , 0x01
+        , HIGH
       #endif
     );
   #endif
@@ -68,7 +68,7 @@
         , MAX31855_MISO_PIN, MAX31855_SCK_PIN  // For software SPI also set MISO/SCK
       #endif
       #if ENABLED(LARGE_PINMAP)
-        , 0x01
+        , HIGH
       #endif
     );
   #endif
@@ -86,7 +86,7 @@
           , MAX31865_MOSI_PIN, MAX31865_MISO_PIN, MAX31865_SCK_PIN  // For software SPI also set MOSI/MISO/SCK
         #endif
         #if ENABLED(LARGE_PINMAP)
-          , 0x01
+          , HIGH
         #endif
       );
   #endif
@@ -97,7 +97,7 @@
         , MAX31865_MOSI_PIN, MAX31865_MISO_PIN, MAX31865_SCK_PIN  // For software SPI also set MOSI/MISO/SCK
       #endif
       #if ENABLED(LARGE_PINMAP)
-          , 0x01
+          , HIGH
       #endif
     );
   #endif
@@ -115,7 +115,7 @@
         , MAX6675_MISO_PIN, MAX6675_SCK_PIN   // For software SPI also set MISO/SCK
       #endif
       #if ENABLED(LARGE_PINMAP)
-        , 0x01
+        , HIGH
       #endif
     );
   #endif
@@ -126,7 +126,7 @@
         , MAX6675_MISO_PIN, MAX6675_SCK_PIN   // For software SPI also set MISO/SCK
       #endif
       #if ENABLED(LARGE_PINMAP)
-        , 0x01
+        , HIGH
       #endif
     );
   #endif
