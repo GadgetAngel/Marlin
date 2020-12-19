@@ -128,7 +128,7 @@
 //ga
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_BTT_SKR_V1_3  //BOARD_RAMPS_14_EFB  BOARD_BTT_SKR_V1_3 BOARD_BTT_SKR_V1_4  BOARD_BTT_SKR_V1_4_TURBO BOARD_BTT_SKR_PRO_V1_1  BOARD_BTT_GTR_V1_0  BOARD_BTT_SKR_MINI_E3_V1_2 BOARD_CREALITY_V427
+  #define MOTHERBOARD BOARD_BTT_GTR_V1_0  //BOARD_RAMPS_14_EFB  BOARD_BTT_SKR_V1_3 BOARD_BTT_SKR_V1_4  BOARD_BTT_SKR_V1_4_TURBO BOARD_BTT_SKR_PRO_V1_1  BOARD_BTT_GTR_V1_0  BOARD_BTT_SKR_MINI_E3_V1_2 BOARD_CREALITY_V427
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
@@ -409,7 +409,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  *///ga
-#define TEMP_SENSOR_0 -2
+#define TEMP_SENSOR_0 -5
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
