@@ -26,7 +26,7 @@
 
 // Useful when debugging thermocouples
 //ga
-//#define IGNORE_THERMOCOUPLE_ERRORS
+#define IGNORE_THERMOCOUPLE_ERRORS
 
 #include "temperature.h"
 #include "endstops.h"
@@ -132,11 +132,10 @@
   #endif
 #endif
 
-/*
 #if !HAS_MAX6675_TEMP && !HAS_MAX31855_TEMP && !HAS_MAX31865_TEMP
   #define NO_THERMO_TEMPS 1
 #endif
-
+/*
 #if (HEATER_0_USES_MAX6675 || HEATER_1_USES_MAX6675) && PINS_EXIST(MAX6675_SCK, MAX6675_DO) && NO_THERMO_TEMPS
   #define MAX6675_SEPARATE_SPI 1
 #endif
@@ -1540,12 +1539,16 @@ void Temperature::manage_heater() {
         return 0;
       }
 
+      float x = 0;
+
     switch (e) {
       case 0:
         #if HEATER_0_USER_THERMISTOR
           return user_thermistor_to_deg_c(CTI_HOTEND_0, raw);
         #elif HEATER_0_USES_MAX6675
-          return TERN(MAX6675_0_IS_MAX31865, max31865_0.temperature(MAX31865_SENSOR_OHMS_0, MAX31865_CALIBRATION_OHMS_0), raw * 0.25);
+            x = TERN(MAX6675_0_IS_MAX31865, max31865_0.temperature(MAX31865_SENSOR_OHMS_0, MAX31865_CALIBRATION_OHMS_0), raw * 0.25);
+            //SERIAL_ECHOLNPAIR("TEMP_0_raw: ", raw);
+          return x;
         #elif HEATER_0_USES_AD595
           return TEMP_AD595(raw);
         #elif HEATER_0_USES_AD8495
@@ -1557,7 +1560,9 @@ void Temperature::manage_heater() {
         #if HEATER_1_USER_THERMISTOR
           return user_thermistor_to_deg_c(CTI_HOTEND_1, raw);
         #elif HEATER_1_USES_MAX6675
-          return TERN(MAX6675_1_IS_MAX31865, max31865_1.temperature(MAX31865_SENSOR_OHMS_1, MAX31865_CALIBRATION_OHMS_1), raw * 0.25);
+              x = TERN(MAX6675_1_IS_MAX31865, max31865_1.temperature(MAX31865_SENSOR_OHMS_1, MAX31865_CALIBRATION_OHMS_1), raw * 0.25);
+              //SERIAL_ECHOLNPAIR("TEMP_1_raw: ", raw);
+          return x;
         #elif HEATER_1_USES_AD595
           return TEMP_AD595(raw);
         #elif HEATER_1_USES_AD8495
@@ -2429,11 +2434,11 @@ void Temperature::disable_all_heaters() {
     //ga
     #if ECHO_TEMP
       #if HAS_MAX31855_TEMP || HAS_MAX6675_TEMP
-        SERIAL_ECHOLNPAIR("Temp: ", max6675_temp ," ");
+        SERIAL_ECHOLNPAIR("Temp: ", max6675_temp);
       #endif
-      #if HAS_MAX31865_TEMP && ECHO_MAX31865_RESITANCE
-        SERIAL_ECHOLNPAIR("MAX31865 RTD readRTD_Resistance     : ", max865ref.readRTD_Resistance(MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) ,"      Calculated     : ", max6675_temp ," ");
-      #endif
+    #endif
+    #if HAS_MAX31865_TEMP && ECHO_MAX31865_RESITANCE
+      SERIAL_ECHOLNPAIR("MAX31865 RTD readRTD_Resistance     : ", max865ref.readRTD_Resistance(MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) ,"      Calculated     : ", max6675_temp ," ");
     #endif
 
     MAX6675_TEMP(hindex) = max6675_temp;
@@ -3115,7 +3120,16 @@ void Temperature::tick() {
     SERIAL_ECHO(c);
     SERIAL_ECHOPAIR(" /" , t);
     #if ENABLED(SHOW_TEMP_ADC_VALUES)
-      SERIAL_ECHOPAIR(" (", r * RECIPROCAL(OVERSAMPLENR));
+      //ga
+      // Thermcouples on MAX31855 do not have an OVERSAMPLENR defined
+      #if NO_THERMO_TEMPS
+        SERIAL_ECHOPAIR(" (", r * RECIPROCAL(OVERSAMPLENR));
+      #else
+        if (k == 'T')
+          SERIAL_ECHOPAIR(" (", r);
+        else
+          SERIAL_ECHOPAIR(" (", r * RECIPROCAL(OVERSAMPLENR));
+      #endif
       SERIAL_CHAR(')');
     #endif
     delay(2);
