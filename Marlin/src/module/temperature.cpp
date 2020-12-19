@@ -102,7 +102,7 @@
     );
   #endif
 #endif
-
+//ga
 #if MAX6675_HAS_MAX6675
   #include <max6675.h>
   #if PIN_EXISTS(MAX6675_MISO) && PIN_EXISTS(MAX6675_SCK)
@@ -115,7 +115,7 @@
         , MAX6675_MISO_PIN, MAX6675_SCK_PIN   // For software SPI also set MISO/SCK
       #endif
       #if ENABLED(LARGE_PINMAP)
-        , HIGH
+        , HIGH  //HIGH  LOW
       #endif
     );
   #endif

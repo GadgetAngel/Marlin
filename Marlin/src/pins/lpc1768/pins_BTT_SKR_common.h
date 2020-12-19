@@ -47,7 +47,7 @@
 //
 // Steppers
 //
-///*
+/*
 #ifndef E1_STEP_PIN
   #define E1_STEP_PIN                      P0_01
 #endif
@@ -57,17 +57,17 @@
 #ifndef E1_ENABLE_PIN
   #define E1_ENABLE_PIN                    P0_10
 #endif
-//*/
+*/
 
 //
 // Temperature Sensors
 //  3.3V max when defined as an analog input
 //
 #ifndef TEMP_0_PIN
-  #define TEMP_0_PIN                    P0_24_A1  // A1 (T1) - (68) - TEMP_0_PIN
+  //#define TEMP_0_PIN                    P0_24_A1  // A1 (T1) - (68) - TEMP_0_PIN
 #endif
 #ifndef TEMP_1_PIN
-  #define TEMP_1_PIN                    P0_25_A2  // A2 (T2) - (69) - TEMP_1_PIN
+  //#define TEMP_1_PIN                    P0_25_A2  // A2 (T2) - (69) - TEMP_1_PIN
 #endif
 #ifndef TEMP_BED_PIN
   #define TEMP_BED_PIN                  P0_23_A0  // A0 (T0) - (67) - TEMP_BED_PIN
@@ -85,9 +85,9 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-//#define TEMP_0_PIN          P0_03    //SW P0_00  //HW P0_02
-#define TEMP_SENSOR_0_PIN   TEMP_0_PIN
-#define ECHO_TEMP 0
+//#define TEMP_0_PIN          P0_00    //SW P0_00  //HW P0_02
+//#define TEMP_SENSOR_0_PIN   TEMP_0_PIN
+#define ECHO_TEMP 1
 #define ECHO_MAX31865_RESITANCE 0
 //#define TEMP_SENSOR_1_PIN   P0_03
 //
@@ -95,7 +95,7 @@
 //#define MAX31865_HW_SPI   //-5
 //#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
-//#define MAX6675_SW_SPI    //-2
+#define MAX6675_SW_SPI    //-2
 //#define MAX6675_HW_SPI    //-2
 
 #ifndef MAX6675_SS_PIN
@@ -181,10 +181,10 @@
   //MAX6675 board configuration for Software SPI
   #ifdef MAX6675_SW_SPI
     //#define MAX6675_DO_PIN                    P0_01
-    #define MAX6675_MISO_PIN                  P0_01
-    #define MAX6675_SCK_PIN                   P1_01
+    #define MAX6675_MISO_PIN                  P4_28
+    #define MAX6675_SCK_PIN                   P0_04
     //#define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN
-    #define MAX6675_CS_PIN                    TEMP_SENSOR_0_PIN
+    #define MAX6675_CS_PIN                    P1_01
     //enable the next lines below if you have two MAX6675 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
     //#define MAX6675_CS2_PIN                   TEMP_1_PIN
@@ -202,8 +202,8 @@
     // MISO_PIN                         P0_08
     // MOSI_PIN                         P0_09
     //
-    #define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN
-    //#define MAX6675_CS_PIN                    TEMP_SENSOR_0_PIN
+    #define MAX6675_SS_PIN                    P4_28
+    //#define MAX6675_CS_PIN                    P2_00
     //enable the next lines below if you have two MAX6675 boards
     //uncomment the below line if you want MAX6675 Hardware SPI to be used
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN

@@ -525,11 +525,10 @@
 
 //
 //Compatability Layer for MB with Large PIN Mappings
-////ga
-#if ANY(MCU_LPC1769, STM32F407IX)
+////ga //MCU_LPC1768, MCU_LPC1769
+#if ANY(STM32F407IX)
   #define LARGE_PINMAP 1
 #endif
-
 
 #if TEMP_SENSOR_2 == -4
   #define HEATER_2_USES_AD8495 1
