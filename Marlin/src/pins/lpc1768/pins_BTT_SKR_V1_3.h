@@ -121,9 +121,9 @@
 #define E0_STEP_PIN                        P2_13
 #define E0_DIR_PIN                         P0_11
 #define E0_ENABLE_PIN                      P2_12
-//#ifndef E0_CS_PIN
-  //#define E0_CS_PIN                        P1_08
-//#endif
+#ifndef E0_CS_PIN
+  #define E0_CS_PIN                        P1_08
+#endif
 
 //#ifndef E1_CS_PIN
   //#define E1_CS_PIN                        P1_01
@@ -175,8 +175,8 @@
   #define Z_SERIAL_TX_PIN                  P1_14
   #define Z_SERIAL_RX_PIN                  P1_10
 
-  #define E0_SERIAL_TX_PIN                 P1_09
-  #define E0_SERIAL_RX_PIN                 P1_08
+  //#define E0_SERIAL_TX_PIN                 P1_09
+  //#define E0_SERIAL_RX_PIN                 P1_08
 
   //#define E1_SERIAL_TX_PIN                 P1_04
   //#define E1_SERIAL_RX_PIN                 P1_01
@@ -195,7 +195,7 @@
  *               -----                                              -----
  *               EXP2                                               EXP1
  */
-
+///*
 #define EXPA1_03_PIN                       P1_23
 #define EXPA1_04_PIN                       P1_22
 #define EXPA1_05_PIN                       P1_21
@@ -204,15 +204,17 @@
 #define EXPA1_08_PIN                       P1_18
 #define EXPA1_09_PIN                       P0_28
 #define EXPA1_10_PIN                       P1_30
-
 #define EXPA2_03_PIN                       -1
 #define EXPA2_04_PIN                       P1_31
+//ga
 #define EXPA2_05_PIN                       P0_18
 #define EXPA2_06_PIN                       P3_25
 #define EXPA2_07_PIN                       P0_16
 #define EXPA2_08_PIN                       P3_26
+//ga
 #define EXPA2_09_PIN                       P0_15
 #define EXPA2_10_PIN                       P0_17
+//*/
 
 #if HAS_WIRED_LCD
   #if ENABLED(ANET_FULL_GRAPHICS_LCD_ALT_WIRING)
@@ -353,7 +355,7 @@
         #define LCD_PINS_D5         EXPA1_05_PIN
         #define LCD_PINS_D6         EXPA1_04_PIN
         #define LCD_PINS_D7         EXPA1_03_PIN
-
+        //ga
         #if ENABLED(REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER)
           #define BTN_ENC_EN         LCD_PINS_D7  // Detect the presence of the encoder
         #endif

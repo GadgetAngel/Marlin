@@ -103,14 +103,14 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#define SERIAL_PORT -1
+#define SERIAL_PORT -1  //for AVR 1 //all other -1
 //ga
 /**
  * Select a secondary serial port on the board to use for communication with the host.
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  *///ga
-//#define SERIAL_PORT_2 -1  //0 for SKR V1.3/V1.4 for TFT // 1 for SKR PRO // 3 for GTR
+//#define SERIAL_PORT_2 0  //0 for SKR V1.3/V1.4 for TFT // 1 for SKR PRO // 3 for GTR
 
 /**
  * This setting determines the communication speed of the printer.
@@ -683,7 +683,7 @@
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
-#define E0_DRIVER_TYPE TMC2209
+#define E0_DRIVER_TYPE TMC2130
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
@@ -1086,9 +1086,9 @@
 //#define DISABLE_REDUCED_ACCURACY_WARNING
 
 // @section extruder
-
+//ga
 #define DISABLE_E false             // Disable the extruder when not stepping
-//#define DISABLE_INACTIVE_EXTRUDER   // Keep only the active extruder enabled
+#define DISABLE_INACTIVE_EXTRUDER   // Keep only the active extruder enabled
 
 // @section machine
 

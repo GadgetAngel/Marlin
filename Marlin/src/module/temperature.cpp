@@ -26,7 +26,7 @@
 
 // Useful when debugging thermocouples
 //ga
-#define IGNORE_THERMOCOUPLE_ERRORS
+//#define IGNORE_THERMOCOUPLE_ERRORS
 
 #include "temperature.h"
 #include "endstops.h"
