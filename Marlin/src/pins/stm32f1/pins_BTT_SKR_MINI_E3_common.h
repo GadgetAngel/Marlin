@@ -59,7 +59,7 @@
 // Filament Runout Sensor
 //
 #ifndef FIL_RUNOUT_PIN
-  //#define FIL_RUNOUT_PIN                    PC15  // "E0-STOP"
+  #define FIL_RUNOUT_PIN                    PC15  // "E0-STOP"
 #endif
 
 //
@@ -91,7 +91,7 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                          PA0   // Analog Input "TH0"
+//#define TEMP_0_PIN                          PA0   // Analog Input "TH0"
 #define TEMP_BED_PIN                        PC3   // Analog Input "TB0"
 
 //
