@@ -1539,16 +1539,12 @@ void Temperature::manage_heater() {
         return 0;
       }
 
-      //float x = 0;
-
     switch (e) {
       case 0:
         #if HEATER_0_USER_THERMISTOR
           return user_thermistor_to_deg_c(CTI_HOTEND_0, raw);
         #elif HEATER_0_USES_MAX6675
-            x = TERN(MAX6675_0_IS_MAX31865, max31865_0.temperature(MAX31865_SENSOR_OHMS_0, MAX31865_CALIBRATION_OHMS_0), raw * 0.25);
-            //SERIAL_ECHOLNPAIR("TEMP_0_raw: ", raw);
-          return x;
+          return TERN(MAX6675_0_IS_MAX31865, max31865_0.temperature(MAX31865_SENSOR_OHMS_0, MAX31865_CALIBRATION_OHMS_0), raw * 0.25);
         #elif HEATER_0_USES_AD595
           return TEMP_AD595(raw);
         #elif HEATER_0_USES_AD8495
@@ -1560,9 +1556,7 @@ void Temperature::manage_heater() {
         #if HEATER_1_USER_THERMISTOR
           return user_thermistor_to_deg_c(CTI_HOTEND_1, raw);
         #elif HEATER_1_USES_MAX6675
-              x = TERN(MAX6675_1_IS_MAX31865, max31865_1.temperature(MAX31865_SENSOR_OHMS_1, MAX31865_CALIBRATION_OHMS_1), raw * 0.25);
-              //SERIAL_ECHOLNPAIR("TEMP_1_raw: ", raw);
-          return x;
+          return TERN(MAX6675_1_IS_MAX31865, max31865_1.temperature(MAX31865_SENSOR_OHMS_1, MAX31865_CALIBRATION_OHMS_1), raw * 0.25);
         #elif HEATER_1_USES_AD595
           return TEMP_AD595(raw);
         #elif HEATER_1_USES_AD8495
