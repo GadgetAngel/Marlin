@@ -41,7 +41,7 @@
 //
 // Servos
 //
-#define SERVO0_PIN                          PA1   // "SERVOS"
+//#define SERVO0_PIN                          PA1   // "SERVOS"
 
 //
 // Limit Switches
@@ -53,20 +53,20 @@
 //
 // Z Probe must be this pin
 //
-#define Z_MIN_PROBE_PIN                     PC14  // "PROBE"
+//#define Z_MIN_PROBE_PIN                     PC14  // "PROBE"
 
 //
 // Filament Runout Sensor
 //
 #ifndef FIL_RUNOUT_PIN
-  #define FIL_RUNOUT_PIN                    PC15  // "E0-STOP"
+  //#define FIL_RUNOUT_PIN                    PC15  // "E0-STOP"
 #endif
 
 //
 // Power-loss Detection
 //
 #ifndef POWER_LOSS_PIN
-  #define POWER_LOSS_PIN                    PC12  // Power Loss Detection: PWR-DET
+  //#define POWER_LOSS_PIN                    PC12  // Power Loss Detection: PWR-DET
 #endif
 
 //
@@ -91,7 +91,7 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                          PA0   // Analog Input "TH0"
+//#define TEMP_0_PIN                          PA0   // Analog Input "TH0"
 #define TEMP_BED_PIN                        PC3   // Analog Input "TB0"
 
 //
@@ -265,7 +265,7 @@
 //
 // SD Support
 //
-
+//ga
 #ifndef SDCARD_CONNECTION
   #define SDCARD_CONNECTION              ONBOARD
 #endif

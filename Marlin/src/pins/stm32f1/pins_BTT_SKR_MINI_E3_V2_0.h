@@ -39,9 +39,9 @@
 // Release PA13/PA14 (led, usb control) from SWD pins
 #define DISABLE_DEBUG
 
-#define NEOPIXEL_PIN                       PA8   // LED driving pin
+//#define NEOPIXEL_PIN                       PA8   // LED driving pin
 
-#define PS_ON_PIN                          PC13  // Power Supply Control
+//#define PS_ON_PIN                          PC13  // Power Supply Control
 
 #define FAN1_PIN                           PC7
 
@@ -59,3 +59,243 @@
   #define Z_HARDWARE_SERIAL  MSerial4
   #define E0_HARDWARE_SERIAL MSerial4
 #endif
+
+//ga
+// GADGETANGEL SECTION Begins ==============================================>>
+//
+// SET ONLY ONE of theses variables or NONE
+#define TEMP_0_PIN          PC13    //SW PI10  //HW PD8
+//#define TEMP_SENSOR_0_PIN   PH13
+#define ECHO_TEMP 1
+#define ECHO_MAX31865_RESITANCE 0
+//#define TEMP_SENSOR_1_PIN   P0_03
+//
+//#define MAX31865_SW_SPI   //-5
+//#define MAX31865_HW_SPI   //-5
+//#define MAX31855_SW_SPI     //-3
+//#define MAX31855_HW_SPI   //-3
+//#define MAX6675_SW_SPI    //-2
+//#define MAX6675_HW_SPI    //-2
+
+#ifndef MAX6675_SS_PIN
+  #ifdef MAX31865_SW_SPI
+    // GTR SW SPI
+    //#define THERMO_SCK_PIN                      PI1   // SCK
+    //#define THERMO_DO_PIN                       PI2   // MISO
+    //#define THERMO_CS1_PIN                      PH9   // CS1
+    //#define THERMO_CS2_PIN                      PH2   // CS2
+
+    //#define MAX6675_SS_PIN            THERMO_CS1_PIN
+    //#define MAX6675_SS2_PIN           THERMO_CS2_PIN
+    //#define MAX6675_SCK_PIN           THERMO_SCK_PIN
+    //#define MAX6675_DO_PIN             THERMO_DO_PIN
+    ///*
+    //#define MAX6675_DO_PIN                    PD1
+    #define MAX31865_MISO_PIN                 PI2
+    //#define MAX6675_SCK_PIN                   PC12
+    #define MAX31865_SCK_PIN                  PI1
+    //
+    #define MAX31865_MOSI_PIN                 PI10
+    //
+    //#define MAX31865_CS_PIN                   PH13
+    #define MAX6675_SS_PIN                    PH13
+    // enable the below two lines if you have a second Adafruit MAX31865 in software SPI mode
+    //#define MAX31865_CS2_PIN                  TEMP_1_PIN
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+    //*/
+  #endif
+
+  #ifdef MAX31865_HW_SPI
+    // SKR V1.4 or SKR V1.4 Turbo or SKR v1.3
+    // if SD_CONNECTION_IS(LCD)
+    // SCK_PIN                          P0_15
+    // MISO_PIN                         P0_17
+    // MOSI_PIN                         P0_18
+    // if SD_CONNECTION_IS(ONBOARD)
+    // SCK_PIN                          P0_07
+    // MISO_PIN                         P0_08
+    // MOSI_PIN                         P0_09
+    //
+    // For SKR PRO V1.1 board
+    // if SD_CONNECTION_IS(LCD)
+    //#define PIN_SPI_MISO            PB14
+    //#define PIN_SPI_SCK             PB13
+    //#define PIN_SPI_MOSI            PB15
+    //
+    // For GTR V1.0 board
+    //#define SDCARD_CONNECTION ONBOARD by default
+    //
+    // ONBOARD //SPI1
+    //  #define SCK_PIN                PA5  //SPI1
+    //  #define MISO_PIN               PA6
+    //  #define MOSI_PIN               PA7
+    //
+    // LCD    //SPI2  <--- this is enbled----YES as long as SD SUPPORT in configuation.h is disabled
+    //#define PIN_SPI_MOSI            PB15
+    //#define PIN_SPI_MISO            PB14
+    //#define PIN_SPI_SCK             PB13
+    //#define PIN_SPI_SS              PB12
+    //
+    //#define CUSTOM_SPI_PINS
+    //#define MISO_PIN                PB14
+    //#define SCK_PIN                 PB13
+    //#define MOSI_PIN                PB15
+    #define MAX6675_SS_PIN                    TEMP_0_PIN
+    // below forces hardware spi
+    ////#define MAX31865_CS_PIN                   MAX6675_SS_PIN  //forces Hardware SPI
+    //#define MAX31865_CS_PIN                   TEMP_0_PIN
+    //enable the below two lines if you have a second Adafruit MAX31865 board on hardware SPI
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN      //P1_00 - PWRDET
+    ////#define MAX31865_CS2_PIN                  MAX6675_SS2_PIN //forces Hardware SPI for the second MAX31865 board
+    //#define MAX31865_CS2_PIN                  TEMP_1_PIN
+  #endif
+
+  //MAX31855 board configuration for Software SPI
+  #ifdef MAX31855_SW_SPI
+    #define THERMO_SCK_PIN                      PI1   // SCK
+    #define THERMO_DO_PIN                       PI2   // MISO
+    #define THERMO_CS1_PIN                      PH13   // CS1
+    #define THERMO_CS2_PIN                      PH9   // CS2
+    //#define THERMO_CS1_PIN                      PH9   // CS1
+    //#define THERMO_CS2_PIN                      PH2   // CS2
+    /*
+    #define MAX6675_SS_PIN            THERMO_CS1_PIN
+    //#define MAX6675_SS2_PIN           THERMO_CS2_PIN
+    #define MAX6675_DO_PIN             THERMO_DO_PIN
+    #define MAX6675_SCK_PIN           THERMO_SCK_PIN
+    */
+    ///*
+    //#define MAX6675_DO_PIN                    THERMO_DO_PIN
+    #define MAX31855_MISO_PIN               THERMO_DO_PIN
+    //#define MAX6675_SCK_PIN                   THERMO_SCK_PIN
+    #define MAX31855_SCK_PIN                THERMO_SCK_PIN  //PG12
+    //#define TEMP_0_PIN                        PF7
+    //#define MAX6675_SS_PIN                    TEMP_0_PIN
+    //#define MAX6675_CS_PIN                    TEMP_0_PIN
+    //#define MAX6675_CS_PIN                    THERMO_CS1_PIN
+    #define MAX31855_CS_PIN                 THERMO_CS1_PIN
+    //#define MAX31855_CS_PIN                 TEMP_SENSOR_0_PIN
+    //enable the next lines below if you have two MAX31855 boards
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+    #define MAX31855_CS2_PIN                  THERMO_CS2_PIN
+    //*/
+    //
+  #endif
+
+  //MAX31855 board configuration for Hardware SPI
+  #ifdef MAX31855_HW_SPI
+    // SKR V1.4 or SKR V1.4 Turbo or SKR v1.3
+    // if SD_CONNECTION_IS(LCD)
+    // SCK_PIN                          P0_15
+    // MISO_PIN                         P0_17
+    // MOSI_PIN                         P0_18
+    // if SD_CONNECTION_IS(ONBOARD)
+    // SCK_PIN                          P0_07
+    // MISO_PIN                         P0_08
+    // MOSI_PIN                         P0_09
+    //
+    // For SKR PRO V1.1 board
+    // if SD_CONNECTION_IS(LCD)
+    //#define PIN_SPI_MISO            PB14
+    //#define PIN_SPI_SCK             PB13
+    //#define PIN_SPI_MOSI            PB15
+    //
+    // For GTR V1.0 board
+    //#define SDCARD_CONNECTION ONBOARD by default
+    //
+    // ONBOARD //SPI1
+    //  #define SCK_PIN                PA5  //SPI1
+    //  #define MISO_PIN               PA6
+    //  #define MOSI_PIN               PA7
+    //
+    // LCD    //SPI2
+    //#define PIN_SPI_MOSI            PB15
+    //#define PIN_SPI_MISO            PB14
+    //#define PIN_SPI_SCK             PB13
+    //#define PIN_SPI_SS              PB12
+    //
+    //uncomment the below line if you want MAX6675 Hardware SPI to be used
+    //#define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN
+    //#define MAX6675_SS_PIN                  TEMP_0_PIN
+    //#define MAX6675_SS_PIN                  PD8
+    //uncomment the below line if you want Adafruit MAX31855 Hardware SPI to be used
+    //#define MAX31855_CS_PIN                   TEMP_SENSOR_0_PIN
+    #define MAX31855_CS_PIN                   TEMP_0_PIN
+    //
+    //enable the next lines below if you have two MAX31855 boards
+    //
+    //uncomment the below line if you want MAX6675 Hardware SPI to be used
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+    //uncomment the below line if you want Adafruit MAX31855 Hardware SPI to be used
+    //#define MAX31855_CS2_PIN                  TEMP_1_PIN
+  #endif
+
+  //MAX6675 board configuration for Software SPI
+  #ifdef MAX6675_SW_SPI
+    #define THERMO_SCK_PIN                      PI1   // SCK
+    #define THERMO_DO_PIN                       PI2   // MISO  //PI2
+    //#define THERMO_CS1_PIN                      PH9   // CS1
+    //#define THERMO_CS2_PIN                      PH2   // CS2
+    #define THERMO_CS1_PIN                      PH13   // CS1
+    //#define THERMO_CS2_PIN                      PH9   // CS2
+
+    #define MAX6675_SS_PIN            THERMO_CS1_PIN
+    //#define MAX6675_SS2_PIN           THERMO_CS2_PIN
+    #define MAX6675_SCK_PIN           THERMO_SCK_PIN
+    #define MAX6675_DO_PIN             THERMO_DO_PIN
+    //
+    /*
+    #define MAX6675_DO_PIN                    PD1
+    //#define MAX6675_MISO_PIN                  THERMO_DO_PIN
+    #define MAX6675_SCK_PIN                   PC12
+    //#define MAX6675_SS_PIN                    PD0
+    #define MAX6675_CS_PIN                    TEMP_0_PIN
+    //enable the next lines below if you have two MAX6675 boards
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+    //#define MAX6675_CS2_PIN                   TEMP_1_PIN
+    */
+  #endif
+
+  //MAX6675 board configuration for Hardware SPI
+  #ifdef MAX6675_HW_SPI
+    // SKR V1.4 or SKR V1.4 Turbo or SKR v1.3
+    // if SD_CONNECTION_IS(LCD)
+    // SCK_PIN                          P0_15
+    // MISO_PIN                         P0_17
+    // MOSI_PIN                         P0_18
+    // if SD_CONNECTION_IS(ONBOARD)
+    // SCK_PIN                          P0_07
+    // MISO_PIN                         P0_08
+    // MOSI_PIN                         P0_09
+    //
+    // For SKR PRO V1.1 board
+    // if SD_CONNECTION_IS(LCD)
+    //#define PIN_SPI_MISO            PB14
+    //#define PIN_SPI_SCK             PB13
+    //#define PIN_SPI_MOSI            PB15
+    //
+    // For GTR V1.0 board
+    //#define SDCARD_CONNECTION ONBOARD by default
+    //
+    // ONBOARD //SPI1
+    //  #define SCK_PIN                PA5  //SPI1
+    //  #define MISO_PIN               PA6
+    //  #define MOSI_PIN               PA7
+    //
+    // LCD    //SPI2
+    //#define PIN_SPI_MOSI            PB15
+    //#define PIN_SPI_MISO            PB14
+    //#define PIN_SPI_SCK             PB13
+    //#define PIN_SPI_SS              PB12
+    //
+    #define MAX6675_SS_PIN                    TEMP_0_PIN
+    //#define MAX6675_CS_PIN                    PD9
+    //enable the next lines below if you have two MAX6675 boards
+    //uncomment the below line if you want MAX6675 Hardware SPI to be used
+    //#define MAX6675_SS2_PIN                   TEMP_1_PIN
+    //#define MAX6675_CS2_PIN                   TEMP_1_PIN
+  #endif
+
+#endif
+
+//GADGETANGEL SECTION Ends ==============================================>>

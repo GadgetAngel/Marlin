@@ -1539,7 +1539,7 @@ void Temperature::manage_heater() {
         return 0;
       }
 
-      float x = 0;
+      //float x = 0;
 
     switch (e) {
       case 0:
