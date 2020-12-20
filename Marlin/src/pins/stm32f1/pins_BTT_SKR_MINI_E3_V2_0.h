@@ -86,8 +86,8 @@
 //
 //#define MAX31865_SW_SPI   //-5
 //#define MAX31865_HW_SPI   //-5
-#define MAX31855_SW_SPI     //-3
-//#define MAX31855_HW_SPI   //-3
+//#define MAX31855_SW_SPI     //-3
+#define MAX31855_HW_SPI   //-3
 //#define MAX6675_SW_SPI    //-2
 //#define MAX6675_HW_SPI    //-2
 
@@ -234,7 +234,7 @@
     //#define MAX6675_SS_PIN                  PD8
     //uncomment the below line if you want Adafruit MAX31855 Hardware SPI to be used
     //#define MAX31855_CS_PIN                   TEMP_SENSOR_0_PIN
-    #define MAX31855_CS_PIN                   TEMP_0_PIN
+    #define MAX31855_CS_PIN                   PC13
     //
     //enable the next lines below if you have two MAX31855 boards
     //
