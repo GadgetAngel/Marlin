@@ -397,7 +397,7 @@
  * The fan turns on automatically whenever any driver is enabled and turns
  * off (or reduces to idle speed) shortly after drivers are turned off.
  */
-//#define USE_CONTROLLER_FAN
+#define USE_CONTROLLER_FAN
 #if ENABLED(USE_CONTROLLER_FAN)
   //#define CONTROLLER_FAN_PIN -1        // Set a custom pin for the controller fan
   //#define CONTROLLER_FAN_USE_Z_ONLY    // With this option only the Z axis is considered
@@ -1148,7 +1148,7 @@
 //#define LCD_TIMEOUT_TO_STATUS 15000
 
 // Add an 'M73' G-code to set the current percentage
-//#define LCD_SET_PROGRESS_MANUALLY
+#define LCD_SET_PROGRESS_MANUALLY
 
 // Show the E position (filament used) during printing
 //#define LCD_SHOW_E_TOTAL
@@ -1681,7 +1681,7 @@
  *
  * See https://marlinfw.org/docs/features/lin_advance.html for full instructions.
  */
-//#define LIN_ADVANCE
+#define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
   #define LIN_ADVANCE_K 0.0    // Unit: mm compression per 1mm/s extruder speed
@@ -1975,7 +1975,7 @@
  * Currently handles M108, M112, M410, M876
  * NOTE: Not yet implemented for all platforms.
  */
-//#define EMERGENCY_PARSER
+#define EMERGENCY_PARSER
 
 // Bad Serial-connections can miss a received command by sending an 'ok'
 // Therefore some clients abort after 30 seconds in a timeout.
@@ -2118,7 +2118,7 @@
  * Requires NOZZLE_PARK_FEATURE.
  * This feature is required for the default FILAMENT_RUNOUT_SCRIPT.
  */
-//#define ADVANCED_PAUSE_FEATURE
+#define ADVANCED_PAUSE_FEATURE
 #if ENABLED(ADVANCED_PAUSE_FEATURE)
   #define PAUSE_PARK_RETRACT_FEEDRATE         60  // (mm/s) Initial retract feedrate.
   #define PAUSE_PARK_RETRACT_LENGTH            2  // (mm) Initial retract.
@@ -2300,7 +2300,7 @@
   #define INTERPOLATE      true
 
   #if AXIS_IS_TMC(X)
-    #define X_CURRENT       580        // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       760        // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  (X_CURRENT/2)  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     16        // 0..256
     #define X_RSENSE          0.11
@@ -2318,7 +2318,7 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       580
+    #define Y_CURRENT       760
     #define Y_CURRENT_HOME  (Y_CURRENT/2)
     #define Y_MICROSTEPS     16
     #define Y_RSENSE          0.11
@@ -2336,7 +2336,7 @@
   #endif
 
   #if AXIS_IS_TMC(Z)
-    #define Z_CURRENT       580
+    #define Z_CURRENT       760
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     16
     #define Z_RSENSE          0.11
@@ -2372,7 +2372,7 @@
   #endif
 
   #if AXIS_IS_TMC(E0)
-    #define E0_CURRENT      650
+    #define E0_CURRENT      800
     #define E0_MICROSTEPS    16
     #define E0_RSENSE         0.11
     #define E0_CHAIN_POS     -1
@@ -2647,7 +2647,7 @@
    * Beta feature!
    * Create a 50/50 square wave step pulse optimal for stepper drivers.
    */
-  //#define SQUARE_WAVE_STEPPING
+  #define SQUARE_WAVE_STEPPING
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.

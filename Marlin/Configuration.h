@@ -103,14 +103,14 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#define SERIAL_PORT -1  //for AVR 1 //all other -1
+#define SERIAL_PORT 2  //for AVR 1 //all other -1
 //ga
 /**
  * Select a secondary serial port on the board to use for communication with the host.
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  *///ga
-#define SERIAL_PORT_2 2  //0 for SKR V1.3/V1.4 for TFT // 1 for SKR PRO // 3 for GTR
+#define SERIAL_PORT_2 -1  //0 for SKR V1.3/V1.4 for TFT // 1 for SKR PRO // 3 for GTR
 
 /**
  * This setting determines the communication speed of the printer.
@@ -585,9 +585,9 @@
  * details can be tuned in Configuration_adv.h
  */
 //ga
-//#define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
-//#define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
-//#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
+#define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
+#define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
+#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
 
 //===========================================================================
 //============================= Mechanical Settings =========================
@@ -821,7 +821,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-//#define S_CURVE_ACCELERATION
+#define S_CURVE_ACCELERATION
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -1401,7 +1401,7 @@
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
  */
-//#define LCD_BED_LEVELING
+#define LCD_BED_LEVELING
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
@@ -1410,7 +1410,7 @@
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
-//#define LEVEL_BED_CORNERS
+#define LEVEL_BED_CORNERS
 
 #if ENABLED(LEVEL_BED_CORNERS)
   #define LEVEL_CORNERS_INSET_LFRB { 30, 30, 30, 30 } // (mm) Left, Front, Right, Back insets
@@ -1588,7 +1588,7 @@
  *    P1  Raise the nozzle always to Z-park height.
  *    P2  Raise the nozzle by Z-park amount, limited to Z_MAX_POS.
  */
-//#define NOZZLE_PARK_FEATURE
+#define NOZZLE_PARK_FEATURE
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
@@ -1789,7 +1789,7 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  *///ga
-//#define SDSUPPORT
+#define SDSUPPORT
 
 /**
  * SD CARD: SPI SPEED
@@ -1869,7 +1869,7 @@
 //
 // Add individual axis homing items (Home X, Home Y, and Home Z) to the LCD menu.
 //
-//#define INDIVIDUAL_AXIS_HOMING_MENU
+#define INDIVIDUAL_AXIS_HOMING_MENU
 
 //
 // SPEAKER/BUZZER
@@ -2136,7 +2136,7 @@
 // This is RAMPS-compatible using a single 10-pin connector.
 // (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
 //
-//#define CR10_STOCKDISPLAY
+#define CR10_STOCKDISPLAY
 #if ENABLED(CR10_STOCKDISPLAY)
   //#define RET6_12864_LCD  // Specific to the SoC (can either be RET / VET)
 #endif
