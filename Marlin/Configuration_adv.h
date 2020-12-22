@@ -47,7 +47,7 @@
  * stream of errors from the sensor.
  *
  * Set this value to 0 to fail on the first error to occur.
- *///ga
+ */
 #define THERMOCOUPLE_MAX_ERRORS 15
 
 //
@@ -1681,7 +1681,7 @@
  *
  * See https://marlinfw.org/docs/features/lin_advance.html for full instructions.
  */
-#define LIN_ADVANCE
+//#define LIN_ADVANCE
 #if ENABLED(LIN_ADVANCE)
   //#define EXTRA_LIN_ADVANCE_K // Enable for second linear advance constants
   #define LIN_ADVANCE_K 0.0    // Unit: mm compression per 1mm/s extruder speed

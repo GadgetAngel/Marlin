@@ -2367,8 +2367,9 @@ void Temperature::disable_all_heaters() {
 
     // At the present time we do not have the ability to set the MAX31865 HIGH threshold
     // or thr LOW threshold, so no need to check for them, zero these bits out
-    const uint8_t fault_31865 = TERN1(HAS_MAX31865_TEMP, (max865ref.readFault() & 0x3FU));
-
+    const uint8_t fault_31865 = 1;
+    //const uint8_t fault_31865 = TERN1(HAS_MAX31865_TEMP, (max865ref.readFault() & 0x3FU));
+    //SERIAL_ECHOLNPAIR("fault_31865 : ", fault_31865 ," ");
 
     if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK) && fault_31865) {
       max6675_errors[hindex]++;
@@ -2432,7 +2433,7 @@ void Temperature::disable_all_heaters() {
       #endif
     #endif
     #if HAS_MAX31865_TEMP && ECHO_MAX31865_RESITANCE
-      SERIAL_ECHOLNPAIR("MAX31865 RTD readRTD_Resistance     : ", max865ref.readRTD_Resistance(MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) ,"      Calculated     : ", max6675_temp ," ");
+      SERIAL_ECHOLNPAIR("RTD_Resistance : ", max6675_temp ," ");
     #endif
 
     MAX6675_TEMP(hindex) = max6675_temp;
