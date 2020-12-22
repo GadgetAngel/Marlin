@@ -110,7 +110,7 @@
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  *///ga
-//#define SERIAL_PORT_2 2  //0 for SKR V1.3/V1.4 for TFT // 1 for SKR PRO // 3 for GTR
+#define SERIAL_PORT_2 2  //0 for SKR V1.3/V1.4 for TFT // 1 for SKR PRO // 3 for GTR
 
 /**
  * This setting determines the communication speed of the printer.
@@ -128,7 +128,7 @@
 //ga
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_BTT_SKR_MINI_E3_V2_0  //BOARD_RAMPS_14_EFB  BOARD_BTT_SKR_V1_3 BOARD_BTT_SKR_V1_4  BOARD_BTT_SKR_V1_4_TURBO BOARD_BTT_SKR_PRO_V1_1  BOARD_BTT_GTR_V1_0  BOARD_BTT_SKR_MINI_E3_V1_2 BOARD_CREALITY_V427
+  #define MOTHERBOARD BOARD_BTT_SKR_MINI_E3_V2_0  //BOARD_BTT_SKR_MINI_E3_V2_0 BOARD_GTM32_PRO_VB BOARD_FYSETC_CHEETAH_V12  //BOARD_RAMPS_14_EFB  BOARD_BTT_SKR_V1_3 BOARD_BTT_SKR_V1_4  BOARD_BTT_SKR_V1_4_TURBO BOARD_BTT_SKR_PRO_V1_1  BOARD_BTT_GTR_V1_0  BOARD_BTT_SKR_MINI_E3_V1_2 BOARD_CREALITY_V427
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
@@ -409,7 +409,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  *///ga
-#define TEMP_SENSOR_0 -3
+#define TEMP_SENSOR_0 -5  //-3
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -1316,7 +1316,7 @@
 //#define AUTO_BED_LEVELING_LINEAR
 //#define AUTO_BED_LEVELING_BILINEAR
 //#define AUTO_BED_LEVELING_UBL
-#define MESH_BED_LEVELING
+//#define MESH_BED_LEVELING  //ga
 
 /**
  * Normally G28 leaves leveling disabled on completion. Enable one of
@@ -1434,8 +1434,8 @@
 /**
  * Add a bed leveling sub-menu for ABL or MBL.
  * Include a guided procedure if manual probing is enabled.
- */
-#define LCD_BED_LEVELING
+ *///ga
+//#define LCD_BED_LEVELING
 
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
@@ -2173,8 +2173,8 @@
 //
 // This is RAMPS-compatible using a single 10-pin connector.
 // (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
-//
-#define CR10_STOCKDISPLAY
+//ga
+//#define CR10_STOCKDISPLAY
 #if ENABLED(CR10_STOCKDISPLAY)
   //#define RET6_12864_LCD  // Specific to the SoC (can either be RET / VET)
 #endif
