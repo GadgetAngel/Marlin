@@ -226,7 +226,7 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                          PF4   // T1 <-> E0
+//#define TEMP_0_PIN                          PF4   // T1 <-> E0
 //#define TEMP_1_PIN                          PF5   // T2 <-> E1
 //#define TEMP_2_PIN                          PF6   // T3 <-> E2
 #define TEMP_BED_PIN                        PF3   // T0 <-> Bed
@@ -235,13 +235,13 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-//#define TEMP_0_PIN          PA10    //SW PG9  //HW PA10 PA9
+#define TEMP_0_PIN          PG9    //SW PG9  //HW PA10
 //#define TEMP_SENSOR_0_PIN   PA10
 //#define ECHO_TEMP 1
-//#define ECHO_MAX31865_RESITANCE 0
+#define ECHO_MAX31865_RESITANCE 0
 //#define TEMP_SENSOR_1_PIN   P0_03
 //
-//#define MAX31865_SW_SPI   //-5
+#define MAX31865_SW_SPI   //-5
 //#define MAX31865_HW_SPI   //-5
 //#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
@@ -250,15 +250,15 @@
 
 #ifndef MAX6675_SS_PIN
   #ifdef MAX31865_SW_SPI
-    //#define MAX6675_DO_PIN                    PD13
-    #define MAX31865_MISO_PIN                 PD13
-    //#define MAX6675_SCK_PIN                   PG12
-    #define MAX31865_SCK_PIN                  PG12
+    #define MAX6675_DO_PIN                    PD13
+    //#define MAX31865_MISO_PIN                 PD13
+    #define MAX6675_SCK_PIN                   PG12
+    //#define MAX31865_SCK_PIN                  PG12
     //
-    #define MAX31865_MOSI_PIN                 PA9
+    //#define MAX31865_MOSI_PIN                 PA9
     //
-    #define MAX31865_CS_PIN                   TEMP_0_PIN
-    //#define MAX6675_SS_PIN                    PG9
+    //#define MAX31865_CS_PIN                   TEMP_0_PIN
+    #define MAX6675_SS_PIN                    TEMP_0_PIN
     // enable the below two lines if you have a second Adafruit MAX31865 in software SPI mode
     //#define MAX31865_CS2_PIN                  TEMP_1_PIN
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN

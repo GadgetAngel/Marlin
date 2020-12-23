@@ -525,7 +525,7 @@
 
 //
 //Compatability Layer for MB with Large PIN Mappings
-////ga 
+////ga
 #if ANY(STM32F407IX)
   #define LARGE_PINMAP 1
 #endif

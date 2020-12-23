@@ -306,17 +306,17 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-#define TEMP_0_PIN          PH13    //SW PI10  //HW PD8
+#define TEMP_0_PIN          PH13    //SW PH13  //HW PD9
 //#define TEMP_SENSOR_0_PIN   PH13
-#define ECHO_TEMP 1
-#define ECHO_MAX31865_RESITANCE 0
+//#define ECHO_TEMP 1
+//#define ECHO_MAX31865_RESITANCE 0
 //#define TEMP_SENSOR_1_PIN   P0_03
 //
-//#define MAX31865_SW_SPI   //-5
+#define MAX31865_SW_SPI   //-5
 //#define MAX31865_HW_SPI   //-5
 //#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
-#define MAX6675_SW_SPI    //-2
+//#define MAX6675_SW_SPI    //-2
 //#define MAX6675_HW_SPI    //-2
 
 #ifndef MAX6675_SS_PIN
@@ -332,15 +332,15 @@
     //#define MAX6675_SCK_PIN           THERMO_SCK_PIN
     //#define MAX6675_DO_PIN             THERMO_DO_PIN
     ///*
-    //#define MAX6675_DO_PIN                    PD1
-    #define MAX31865_MISO_PIN                 PI2
-    //#define MAX6675_SCK_PIN                   PC12
-    #define MAX31865_SCK_PIN                  PI1
+    //#define MAX6675_DO_PIN                    PI2
+    //#define MAX31865_MISO_PIN                 PI2
+    //#define MAX6675_SCK_PIN                   PI1
+    //#define MAX31865_SCK_PIN                  PI1
     //
-    #define MAX31865_MOSI_PIN                 PI10
+    //#define MAX31865_MOSI_PIN                 PI10
     //
     //#define MAX31865_CS_PIN                   PH13
-    #define MAX6675_SS_PIN                    PH13
+    #define MAX6675_SS_PIN                    TEMP_0_PIN
     // enable the below two lines if you have a second Adafruit MAX31865 in software SPI mode
     //#define MAX31865_CS2_PIN                  TEMP_1_PIN
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
