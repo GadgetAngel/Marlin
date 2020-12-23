@@ -64,7 +64,7 @@
 //  3.3V max when defined as an analog input
 //
 #ifndef TEMP_0_PIN
-  //#define TEMP_0_PIN                    P0_24_A1  // A1 (T1) - (68) - TEMP_0_PIN
+  #define TEMP_0_PIN                    P0_24_A1  // A1 (T1) - (68) - TEMP_0_PIN
 #endif
 #ifndef TEMP_1_PIN
   //#define TEMP_1_PIN                    P0_25_A2  // A2 (T2) - (69) - TEMP_1_PIN
@@ -85,15 +85,15 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-#define TEMP_0_PIN          P0_02    //SW P0_00  //HW P0_02
+//#define TEMP_0_PIN          P0_03    //SW P0_00  //HW P0_03  //SW P1_14 //HW P0_03
 //#define TEMP_SENSOR_0_PIN   TEMP_0_PIN
 #define ECHO_TEMP 0
 #define ECHO_MAX31865_RESITANCE 0
 //#define TEMP_SENSOR_1_PIN   P0_03
 //
-//#define MAX31865_SW_SPI   //-5
-#define MAX31865_HW_SPI   //-5
-//#define MAX31855_SW_SPI     //-3
+//define MAX31865_SW_SPI   //-5
+//#define MAX31865_HW_SPI   //-5
+#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
 //#define MAX6675_SW_SPI    //-2
 //#define MAX6675_HW_SPI    //-2
@@ -105,7 +105,7 @@
     #define MAX6675_SCK_PIN                   P1_01
     //#define MAX31865_SCK_PIN                  P1_01
     //
-    #define MAX31865_MOSI_PIN                 P0_02
+    //#define MAX31865_MOSI_PIN                 P0_02
     //
     //#define MAX31865_CS_PIN                   TEMP_0_PIN
     #define MAX6675_SS_PIN                    TEMP_0_PIN
@@ -137,13 +137,14 @@
 
   //MAX31855 board configuration for Software SPI
   #ifdef MAX31855_SW_SPI
-    //#define MAX6675_DO_PIN                    P0_01
-    #define MAX31855_MISO_PIN               P0_01
+    //#define MAX6675_DO_PIN                    P1_15
+    //#define MAX31855_MISO_PIN               P0_01
     //#define MAX6675_SCK_PIN                   P1_01
-    #define MAX31855_SCK_PIN                P1_01
+    //#define MAX31855_SCK_PIN                P1_01
+    //#define MAX31865_MOSI_PIN                 P0_03
     //#define MAX6675_SS_PIN                  TEMP_0_PIN
-    //#define MAX6675_SS_PIN                    TEMP_0_PIN
-    #define MAX31855_CS_PIN                 TEMP_0_PIN
+    #define MAX6675_SS_PIN                    TEMP_0_PIN
+    //#define MAX31855_CS_PIN                 TEMP_0_PIN
     //#define MAX31855_CS_PIN                 TEMP_SENSOR_0_PIN
     //enable the next lines below if you have two MAX31855 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN

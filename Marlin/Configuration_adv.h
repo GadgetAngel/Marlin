@@ -2460,7 +2460,7 @@
    * The default SW SPI pins are defined the respective pins files,
    * but you can override or define them here.
    *///ga
-  //#define TMC_USE_SW_SPI
+  #define TMC_USE_SW_SPI
   //#define TMC_SW_MOSI       -1
   //#define TMC_SW_MISO       -1
   //#define TMC_SW_SCK        -1
@@ -2650,8 +2650,8 @@
   /**
    * Beta feature!
    * Create a 50/50 square wave step pulse optimal for stepper drivers.
-   */
-  #define SQUARE_WAVE_STEPPING
+   *///ga needed for SKR mini
+  //#define SQUARE_WAVE_STEPPING
 
   /**
    * Enable M122 debugging command for TMC stepper drivers.

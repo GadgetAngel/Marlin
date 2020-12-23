@@ -255,9 +255,9 @@
 
     #define MAX6675_SS_PIN            TEMP_0_PIN
     //#define MAX6675_SS2_PIN           THERMO_CS2_PIN
-    #define MAX6675_SCK_PIN           THERMO_SCK_PIN
-    #define MAX6675_DO_PIN             THERMO_DO_PIN
-    #define MAX31865_MOSI_PIN           PC13
+    //#define MAX6675_SCK_PIN           THERMO_SCK_PIN
+    //#define MAX6675_DO_PIN             THERMO_DO_PIN
+    //#define MAX31865_MOSI_PIN           PC13
     //
     /*
     #define MAX6675_DO_PIN                    PD1
