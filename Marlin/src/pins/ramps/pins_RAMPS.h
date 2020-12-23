@@ -442,9 +442,9 @@
 //
 //#define MAX31865_SW_SPI   //-5
 //#define MAX31865_HW_SPI   //-5
-#define MAX31855_SW_SPI     //-3
+//#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
-//#define MAX6675_SW_SPI    //-2
+#define MAX6675_SW_SPI    //-2
 //#define MAX6675_HW_SPI    //-2
 
 #ifndef MAX6675_SS_PIN
@@ -584,7 +584,7 @@
     //
     //uncomment the below line if you want MAX6675 Hardware SPI to be used
     //#define MAX6675_SS_PIN                    TEMP_SENSOR_0_PIN
-    #define MAX6675_SS_PIN                  66
+    #define MAX6675_SS_PIN                  44
     //#define MAX6675_SS_PIN                  PD8
     //uncomment the below line if you want Adafruit MAX31855 Hardware SPI to be used
     //#define MAX31855_CS_PIN                   TEMP_SENSOR_0_PIN
@@ -617,7 +617,7 @@
     #define MAX6675_MISO_PIN                  THERMO_DO_PIN
     #define MAX6675_SCK_PIN                   THERMO_SCK_PIN
     //#define MAX6675_SS_PIN                    THERMO_CS1_PIN
-    #define MAX6675_CS_PIN                    THERMO_CS1_PIN
+    #define MAX6675_CS_PIN                    TEMP_0_PIN
     //enable the next lines below if you have two MAX6675 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
     //#define MAX6675_CS2_PIN                   TEMP_1_PIN

@@ -78,17 +78,17 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-#define TEMP_0_PIN          PC12    //SW PA1  //HW PC12
+#define TEMP_0_PIN          PA1    //SW PA1  //HW PC13
 //#define TEMP_SENSOR_0_PIN   PH13
-#define ECHO_TEMP 1
-#define ECHO_MAX31865_RESITANCE 1
+//#define ECHO_TEMP 1
+//#define ECHO_MAX31865_RESITANCE 1
 //#define TEMP_SENSOR_1_PIN   P0_03
 //
 //#define MAX31865_SW_SPI   //-5
-#define MAX31865_HW_SPI   //-5
+//#define MAX31865_HW_SPI   //-5
 //#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
-//#define MAX6675_SW_SPI    //-2
+#define MAX6675_SW_SPI    //-2
 //#define MAX6675_HW_SPI    //-2
 
 #ifndef MAX6675_SS_PIN
@@ -253,10 +253,11 @@
     #define THERMO_CS1_PIN                      PA1   // CS1
     //#define THERMO_CS2_PIN                      PH9   // CS2
 
-    #define MAX6675_SS_PIN            THERMO_CS1_PIN
+    #define MAX6675_SS_PIN            TEMP_0_PIN
     //#define MAX6675_SS2_PIN           THERMO_CS2_PIN
     #define MAX6675_SCK_PIN           THERMO_SCK_PIN
     #define MAX6675_DO_PIN             THERMO_DO_PIN
+    #define MAX31865_MOSI_PIN           PC13
     //
     /*
     #define MAX6675_DO_PIN                    PD1
