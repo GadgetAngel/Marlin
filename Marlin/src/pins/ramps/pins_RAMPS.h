@@ -434,16 +434,16 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-//#define TEMP_0_PIN          66    //SW PA1  //HW 44
+#define TEMP_0_PIN          66    //SW PA1  //HW 44
 //#define TEMP_SENSOR_0_PIN   PH13
-#define ECHO_TEMP 1
+//#define ECHO_TEMP 1
 //#define ECHO_MAX31865_RESITANCE 1
 //#define TEMP_SENSOR_1_PIN   P0_03
 //
 //#define MAX31865_SW_SPI   //-5
 //#define MAX31865_HW_SPI   //-5
-//#define MAX31855_SW_SPI     //-3
-#define MAX31855_HW_SPI   //-3
+#define MAX31855_SW_SPI     //-3
+//#define MAX31855_HW_SPI   //-3
 //#define MAX6675_SW_SPI    //-2
 //#define MAX6675_HW_SPI    //-2
 
@@ -510,10 +510,10 @@
     //#define MISO_PIN                PB14
     //#define SCK_PIN                 PB13
     //#define MOSI_PIN                PB15
-    #define MAX6675_SS_PIN                    66
+    //#define MAX6675_SS_PIN                    66
     // below forces hardware spi
     ////#define MAX31865_CS_PIN                   MAX6675_SS_PIN  //forces Hardware SPI
-    //#define MAX31865_CS_PIN                   66
+    #define MAX31865_CS_PIN                   TEMP_0_PIN
     //enable the below two lines if you have a second Adafruit MAX31865 board on hardware SPI
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN      //P1_00 - PWRDET
     ////#define MAX31865_CS2_PIN                  MAX6675_SS2_PIN //forces Hardware SPI for the second MAX31865 board
@@ -541,7 +541,7 @@
     #define MAX31855_SCK_PIN                THERMO_SCK_PIN  //PG12
     //#define TEMP_0_PIN                        PF7
     //#define MAX6675_SS_PIN                    THERMO_CS1_PIN
-    #define MAX31855_CS_PIN                 THERMO_CS1_PIN
+    #define MAX31855_CS_PIN                 TEMP_0_PIN
     //#define MAX31855_CS_PIN                 TEMP_SENSOR_0_PIN
     //enable the next lines below if you have two MAX31855 boards
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN

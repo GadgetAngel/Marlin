@@ -1544,7 +1544,7 @@ void Temperature::manage_heater() {
         #if HEATER_0_USER_THERMISTOR
           return user_thermistor_to_deg_c(CTI_HOTEND_0, raw);
         #elif HEATER_0_USES_MAX6675
-          return TERN(MAX6675_0_IS_MAX31865, max31865_0.temperature(MAX31865_SENSOR_OHMS_0, MAX31865_CALIBRATION_OHMS_0), raw * 0.25);
+            return TERN(MAX6675_0_IS_MAX31865, max31865_0.temperature(MAX31865_SENSOR_OHMS_0, MAX31865_CALIBRATION_OHMS_0), raw * 0.25);
         #elif HEATER_0_USES_AD595
           return TEMP_AD595(raw);
         #elif HEATER_0_USES_AD8495
@@ -1556,7 +1556,7 @@ void Temperature::manage_heater() {
         #if HEATER_1_USER_THERMISTOR
           return user_thermistor_to_deg_c(CTI_HOTEND_1, raw);
         #elif HEATER_1_USES_MAX6675
-          return TERN(MAX6675_1_IS_MAX31865, max31865_1.temperature(MAX31865_SENSOR_OHMS_1, MAX31865_CALIBRATION_OHMS_1), raw * 0.25);
+            return TERN(MAX6675_1_IS_MAX31865, max31865_1.temperature(MAX31865_SENSOR_OHMS_1, MAX31865_CALIBRATION_OHMS_1), raw * 0.25);
         #elif HEATER_1_USES_AD595
           return TEMP_AD595(raw);
         #elif HEATER_1_USES_AD8495
@@ -2365,13 +2365,7 @@ void Temperature::disable_all_heaters() {
       max6675_temp = max6675ref.readRaw16();
     #endif
 
-    // At the present time we do not have the ability to set the MAX31865 HIGH threshold
-    // or thr LOW threshold, so no need to check for them, zero these bits out
-    const uint8_t fault_31865 = 1;
-    //const uint8_t fault_31865 = TERN1(HAS_MAX31865_TEMP, (max865ref.readFault() & 0x3FU));
-    //SERIAL_ECHOLNPAIR("fault_31865 : ", fault_31865 ," ");
-
-    if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK) && fault_31865) {
+    if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK)) {
       max6675_errors[hindex]++;
       if (max6675_errors[hindex] > THERMOCOUPLE_MAX_ERRORS) {
         SERIAL_ERROR_START();
@@ -2385,10 +2379,13 @@ void Temperature::disable_all_heaters() {
             else if (max6675_temp & 4)
               SERIAL_ECHOLNPAIR("Fault : (", max6675_temp & 4 ,")  >> Short to VCC");
         #elif MAX6675_HAS_MAX31865
-          const uint8_t fault_31865 = max865ref.readFault();
-            max865ref.clearFault();
+          // At the present time we do not have the ability to set the MAX31865 HIGH threshold
+          // or thr LOW threshold, so no need to check for them, zero these bits out
+          const uint8_t fault_31865 = max865ref.readFault() & 0x3FU;
+          max865ref.clearFault();
           if (fault_31865) {
-            SERIAL_ECHOLNPAIR("\nMAX31865 Fault :(", fault_31865, ")  >>");
+            SERIAL_ECHOLN();
+            SERIAL_ECHOLNPAIR("MAX31865 Fault :(", fault_31865, ")  >>");
             if (fault_31865 & MAX31865_FAULT_HIGHTHRESH)
               SERIAL_ECHOLNPGM("RTD High Threshold");
             if (fault_31865 & MAX31865_FAULT_LOWTHRESH)
