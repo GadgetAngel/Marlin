@@ -78,7 +78,7 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-#define TEMP_0_PIN          PA1    //SW PA1  //HW PC13
+#define TEMP_0_PIN          PC13    //SW PA1  //HW PC13
 //#define TEMP_SENSOR_0_PIN   PH13
 //#define ECHO_TEMP 1
 //#define ECHO_MAX31865_RESITANCE 1
