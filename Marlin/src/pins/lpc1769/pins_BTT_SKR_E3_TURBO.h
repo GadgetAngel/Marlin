@@ -41,7 +41,7 @@
 #define Y_DIAG_PIN                         P1_28  // Y-STOP
 #define Z_DIAG_PIN                         P1_27  // Z-STOP
 #define E0_DIAG_PIN                        P1_26  // E0DET
-#define E1_DIAG_PIN                        P1_25  // E1DET
+//#define E1_DIAG_PIN                        P1_25  // E1DET
 
 //
 // Limit Switches
@@ -59,14 +59,14 @@
 //
 // Filament Runout Sensor
 //
-#define FIL_RUNOUT_PIN                     P1_26  // E0DET
-#define FIL_RUNOUT2_PIN                    P1_25  // E1DET
+//#define FIL_RUNOUT_PIN                     P1_26  // E0DET
+//#define FIL_RUNOUT2_PIN                    P1_25  // E1DET
 
 //
 // Power Supply Control
 //
 #ifndef PS_ON_PIN
-  #define PS_ON_PIN                        P1_21
+  //#define PS_ON_PIN                        P1_21
 #endif
 
 // LED driving pin
@@ -76,7 +76,7 @@
 // Power Loss Detection
 //
 #ifndef POWER_LOSS_PIN
-  #define POWER_LOSS_PIN                   P1_20  // PWRDET
+  //#define POWER_LOSS_PIN                   P1_20  // PWRDET
 #endif
 
 //
@@ -85,37 +85,39 @@
 #define X_STEP_PIN                         P1_04
 #define X_DIR_PIN                          P1_08
 #define X_ENABLE_PIN                       P1_00
-#ifndef X_CS_PIN
-  #define X_CS_PIN                         P1_01
-#endif
+//#ifndef X_CS_PIN
+  //#define X_CS_PIN                         P1_01
+//#endif
 
 #define Y_STEP_PIN                         P1_14
 #define Y_DIR_PIN                          P1_15
 #define Y_ENABLE_PIN                       P1_09
-#ifndef Y_CS_PIN
-  #define Y_CS_PIN                         P1_10
-#endif
+//#ifndef Y_CS_PIN
+  //#define Y_CS_PIN                         P1_10
+//#endif
 
 #define Z_STEP_PIN                         P4_29
 #define Z_DIR_PIN                          P4_28
 #define Z_ENABLE_PIN                       P1_16
-#ifndef Z_CS_PIN
-  #define Z_CS_PIN                         P1_17
-#endif
+//#ifndef Z_CS_PIN
+  //#define Z_CS_PIN                         P1_17
+//#endif
 
 #define E0_STEP_PIN                        P2_06
 #define E0_DIR_PIN                         P2_07
 #define E0_ENABLE_PIN                      P0_04
-#ifndef E0_CS_PIN
-  #define E0_CS_PIN                        P0_05
-#endif
+//#ifndef E0_CS_PIN
+  //#define E0_CS_PIN                        P0_05
+//#endif
 
+/*
 #define E1_STEP_PIN                        P2_11
 #define E1_DIR_PIN                         P2_12
 #define E1_ENABLE_PIN                      P0_21
 #ifndef E1_CS_PIN
   #define E1_CS_PIN                        P0_22
 #endif
+*/
 
 #if HAS_TMC_UART
   /**
@@ -140,8 +142,8 @@
   #define E0_SERIAL_TX_PIN                 P0_05
   #define E0_SERIAL_RX_PIN                 P0_05
 
-  #define E1_SERIAL_TX_PIN                 P0_22
-  #define E1_SERIAL_RX_PIN                 P0_22
+  //#define E1_SERIAL_TX_PIN                 P0_22
+  //#define E1_SERIAL_RX_PIN                 P0_22
 
   // Reduce baud rate to improve software serial reliability
   #define TMC_BAUD_RATE                    19200
@@ -154,13 +156,13 @@
 #define Y_STDBY_PIN                        P3_25
 #define Z_STDBY_PIN                        P1_18
 #define E0_STDBY_PIN                       P1_19
-#define E1_STDBY_PIN                       P2_13
+//#define E1_STDBY_PIN                       P2_13
 
 //
 // Temperature Sensors
 //
 #define TEMP_0_PIN                         P0_24
-#define TEMP_1_PIN                         P0_23
+//#define TEMP_1_PIN                         P0_23
 //#define TEMP_2_PIN                       P1_30  // Onboard thermistor
 #define TEMP_BED_PIN                       P0_25
 
