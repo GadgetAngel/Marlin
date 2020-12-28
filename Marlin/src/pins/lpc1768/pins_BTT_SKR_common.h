@@ -93,7 +93,7 @@
 //
 //define MAX31865_SW_SPI   //-5
 //#define MAX31865_HW_SPI   //-5
-#define MAX31855_SW_SPI     //-3
+//#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
 //#define MAX6675_SW_SPI    //-2
 //#define MAX6675_HW_SPI    //-2

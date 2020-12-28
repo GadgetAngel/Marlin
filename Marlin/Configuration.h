@@ -110,7 +110,7 @@
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  *///ga
-#define SERIAL_PORT_2 0  //comment out for SKR V1.3/V1.4 for TFT // 1 for SKR PRO // 3 for GTR  //2 for SKR Mini E3 //0 for SKR E3 Turbo
+//#define SERIAL_PORT_2 0  //comment out for SKR V1.3/V1.4 for TFT // 1 for SKR PRO // 3 for GTR  //2 for SKR Mini E3 //0 for SKR E3 Turbo
 
 /**
  * This setting determines the communication speed of the printer.
@@ -128,7 +128,7 @@
 //ga
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_BTT_SKR_E3_TURBO  //BOARD_BTT_SKR_MINI_E3_V2_0  //BOARD_RAMPS_14_EFB  BOARD_BTT_SKR_E3_TURBO BOARD_BTT_SKR_V1_3  BOARD_BTT_SKR_V1_4_TURBO  BOARD_BTT_SKR_PRO_V1_1  BOARD_BTT_GTR_V1_0
+  #define MOTHERBOARD BOARD_BTT_SKR_V1_4  //BOARD_BTT_SKR_MINI_E3_V2_0  //BOARD_RAMPS_14_EFB  BOARD_BTT_SKR_E3_TURBO BOARD_BTT_SKR_V1_3  BOARD_BTT_SKR_V1_4_TURBO  BOARD_BTT_SKR_PRO_V1_1  BOARD_BTT_GTR_V1_0
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
@@ -682,7 +682,7 @@
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
-#define E0_DRIVER_TYPE TMC2209  //TMC2209 or TMC2130  //A4988
+#define E0_DRIVER_TYPE TMC2130  //TMC2209 or TMC2130  //A4988
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
@@ -1827,7 +1827,7 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  *///ga
-//#define SDSUPPORT
+#define SDSUPPORT
 
 /**
  * SD CARD: SPI SPEED
