@@ -332,12 +332,12 @@
     //#define MAX6675_SCK_PIN           THERMO_SCK_PIN
     //#define MAX6675_DO_PIN             THERMO_DO_PIN
     ///*
-    //#define MAX6675_DO_PIN                    PI2
+    #define MAX6675_DO_PIN                    PI2
     //#define MAX31865_MISO_PIN                 PI2
-    //#define MAX6675_SCK_PIN                   PI1
+    #define MAX6675_SCK_PIN                   PI1
     //#define MAX31865_SCK_PIN                  PI1
     //
-    //#define MAX31865_MOSI_PIN                 PI10
+    #define MAX31865_MOSI_PIN                 PI10
     //
     //#define MAX31865_CS_PIN                   PH13
     #define MAX6675_SS_PIN                    TEMP_0_PIN
