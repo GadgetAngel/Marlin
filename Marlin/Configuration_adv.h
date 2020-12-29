@@ -1374,7 +1374,7 @@
    *
    * :[ 'LCD', 'ONBOARD', 'CUSTOM_CABLE' ]
    *///ga
-  #define SDCARD_CONNECTION LCD
+  //#define SDCARD_CONNECTION LCD
 
 #endif // SDSUPPORT
 
@@ -2471,7 +2471,7 @@
    * The default SW SPI pins are defined the respective pins files,
    * but you can override or define them here.
    *///ga
-  #define TMC_USE_SW_SPI
+  //#define TMC_USE_SW_SPI
   //#define TMC_SW_MOSI       -1
   //#define TMC_SW_MISO       -1
   //#define TMC_SW_SCK        -1

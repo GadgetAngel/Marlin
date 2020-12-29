@@ -370,7 +370,7 @@
 
 //
 // SD Support
-////ga
+//
 
 #ifndef SDCARD_CONNECTION
   #define SDCARD_CONNECTION                  LCD

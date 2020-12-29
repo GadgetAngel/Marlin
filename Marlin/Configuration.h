@@ -125,10 +125,10 @@
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
-//ga
+//ga4
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_BTT_GTR_V1_0  //BOARD_BTT_SKR_MINI_E3_V2_0  //BOARD_RAMPS_14_EFB  BOARD_BTT_SKR_E3_TURBO BOARD_BTT_SKR_V1_3  BOARD_BTT_SKR_V1_4_TURBO  BOARD_BTT_SKR_PRO_V1_1  BOARD_BTT_GTR_V1_0
+  #define MOTHERBOARD BOARD_BTT_BTT002_V1_0
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
@@ -409,7 +409,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  *///ga
-#define TEMP_SENSOR_0 -5  //-3 MAX31855 //-5 MAX31865 //-2 MAX6675
+#define TEMP_SENSOR_0 1  //-3 MAX31855 //-5 MAX31865 //-2 MAX6675
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -682,7 +682,7 @@
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
-#define E0_DRIVER_TYPE TMC2130  //TMC2209 or TMC2130  //A4988
+#define E0_DRIVER_TYPE TMC2209  //TMC2209 or TMC2130  //A4988
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
@@ -1821,7 +1821,7 @@
  *
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
- *///ga
+ *///ga4
 #define SDSUPPORT
 
 /**

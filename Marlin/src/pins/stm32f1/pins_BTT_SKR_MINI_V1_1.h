@@ -211,7 +211,7 @@
 // By default the onboard SD is enabled.
 // Change SDCARD_CONNECTION from 'ONBOARD' to 'LCD' for an external (LCD module) SD
 #ifndef SDCARD_CONNECTION
-  #define SDCARD_CONNECTION              ONBOARD
+  #define SDCARD_CONNECTION              ONBOARD  //originally ONBOARD
 #endif
 
 #if SD_CONNECTION_IS(LCD)

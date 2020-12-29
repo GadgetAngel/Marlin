@@ -163,7 +163,7 @@
 #define HAS_ONBOARD_SD
 
 #ifndef SDCARD_CONNECTION
-  #define SDCARD_CONNECTION              ONBOARD
+  #define SDCARD_CONNECTION              ONBOARD  //originally ONBOARD
 #endif
 
 #if SD_CONNECTION_IS(ONBOARD)

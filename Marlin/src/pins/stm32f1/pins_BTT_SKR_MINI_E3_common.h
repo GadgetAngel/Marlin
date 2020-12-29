@@ -267,7 +267,7 @@
 //
 //ga
 #ifndef SDCARD_CONNECTION
-  #define SDCARD_CONNECTION              ONBOARD
+  #define SDCARD_CONNECTION              ONBOARD  //origianlly ONBOARD
 #endif
 
 #if SD_CONNECTION_IS(ONBOARD)

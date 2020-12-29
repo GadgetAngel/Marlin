@@ -332,6 +332,7 @@
     //#define MAX6675_SCK_PIN           THERMO_SCK_PIN
     //#define MAX6675_DO_PIN             THERMO_DO_PIN
     ///*
+    #define UNUSED2_PIN                       PI9     //unused PIN on CAN header
     #define MAX6675_DO_PIN                    PI2
     //#define MAX31865_MISO_PIN                 PI2
     #define MAX6675_SCK_PIN                   PI1
@@ -340,7 +341,8 @@
     #define MAX31865_MOSI_PIN                 PI10
     //
     //#define MAX31865_CS_PIN                   PH13
-    #define MAX6675_SS_PIN                    TEMP_0_PIN
+    #define MMAX31865_CS_PIN                    TEMP_0_PIN
+    #define MAX6675_SS_PIN                      UNUSED2_PIN
     // enable the below two lines if you have a second Adafruit MAX31865 in software SPI mode
     //#define MAX31865_CS2_PIN                  TEMP_1_PIN
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
