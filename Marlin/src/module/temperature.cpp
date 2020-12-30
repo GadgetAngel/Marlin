@@ -45,8 +45,8 @@
   #include "../lcd/extui/ui_api.h"
 #endif
 //ga
-// LIB_MAX31855 can be added in platformio.ini file on the build_flags line to use this library
-#if MAX6675_HAS_MAX31855 && ENABLED(LIB_MAX31855)
+// LIB_MAX31855 can be added in platformio.ini file on the build_flags line to use a user defined library
+#if LIB_USR_MAX31855
   #include <Adafruit_MAX31855.h>
   #if PIN_EXISTS(MAX31855_MISO) && PIN_EXISTS(MAX31855_SCK)
     #define MAX31855_USES_SW_SPI 1
@@ -77,6 +77,8 @@
   #endif
 #endif
 //ga
+//LIB_MAX31865 can be added in platformio.ini file on the build_flags line to use a user defined library
+//if LIB_MAX31865 is not on the build_flags then the Adafruit MAX31865 V1.1.0 library is used
 #if MAX6675_HAS_MAX31865
   #include <Adafruit_MAX31865.h>
   #if PIN_EXISTS(MAX31865_MISO) && PIN_EXISTS(MAX31865_SCK)
@@ -108,8 +110,8 @@
   #endif
 #endif
 //ga
-// LIB_MAX6675 can be added in platformio.ini file on the build_flags line to use this library
-#if MAX6675_HAS_MAX6675 && ENABLED(LIB_MAX6675)
+// LIB_MAX6675 can be added in platformio.ini file on the build_flags line to use a user defined library
+#if LIB_USR_MAX6675
   #include <max6675.h>
   #if PIN_EXISTS(MAX6675_MISO) && PIN_EXISTS(MAX6675_SCK)
     #define MAX6675_USES_SW_SPI 1
@@ -122,7 +124,7 @@
       #endif
       //LARGE_PINMAP can be added in platformio.ini file on the build_flags line
       #if ENABLED(LARGE_PINMAP)
-        , HIGH  //HIGH  LOW
+        , HIGH
       #endif
     );
   #endif
@@ -1878,7 +1880,7 @@ void Temperature::init() {
   #endif
 
   //ga
-  //TERN_(MAX6675_SEPARATE_SPI, max6675_spi.init());
+  TERN_(MAX6675_SEPARATE_SPI, max6675_spi.init());
 
   HAL_adc_init();
 
@@ -2298,8 +2300,10 @@ void Temperature::disable_all_heaters() {
       static uint16_t max6675_temp_previous[COUNT_6675] = { 0 };
       #define MAX6675_TEMP(I) max6675_temp_previous[I]
       #define MAX6675_SEL(A,B) (hindex ? (B) : (A))
-      //#define MAX6675_WRITE(V)     do{ switch (hindex) { case 1:      WRITE(MAX6675_SS2_PIN, V); break; default:      WRITE(MAX6675_SS_PIN, V); } }while(0)
-      //#define MAX6675_SET_OUTPUT() do{ switch (hindex) { case 1: SET_OUTPUT(MAX6675_SS2_PIN);    break; default: SET_OUTPUT(MAX6675_SS_PIN);    } }while(0)
+      #if NO_THERMO_TEMPS
+        #define MAX6675_WRITE(V)     do{ switch (hindex) { case 1:      WRITE(MAX6675_SS2_PIN, V); break; default:      WRITE(MAX6675_SS_PIN, V); } }while(0)
+        #define MAX6675_SET_OUTPUT() do{ switch (hindex) { case 1: SET_OUTPUT(MAX6675_SS2_PIN);    break; default: SET_OUTPUT(MAX6675_SS_PIN);    } }while(0)
+      #endif
     #else
       constexpr uint8_t hindex = 0;
       #define MAX6675_TEMP(I) max6675_temp
@@ -2308,17 +2312,19 @@ void Temperature::disable_all_heaters() {
       #else
         #define MAX6675_SEL(A,B) A
       #endif
-      /*
-      #if HEATER_0_USES_MAX6675
-        #define MAX6675_WRITE(V)          WRITE(MAX6675_SS_PIN, V)
-        #define MAX6675_SET_OUTPUT() SET_OUTPUT(MAX6675_SS_PIN)
-      #else
-        #define MAX6675_WRITE(V)          WRITE(MAX6675_SS2_PIN, V)
-        #define MAX6675_SET_OUTPUT() SET_OUTPUT(MAX6675_SS2_PIN)
+
+      #if NO_THERMO_TEMPS
+        #if HEATER_0_USES_MAX6675
+          #define MAX6675_WRITE(V)          WRITE(MAX6675_SS_PIN, V)
+          #define MAX6675_SET_OUTPUT() SET_OUTPUT(MAX6675_SS_PIN)
+        #else
+          #define MAX6675_WRITE(V)          WRITE(MAX6675_SS2_PIN, V)
+          #define MAX6675_SET_OUTPUT() SET_OUTPUT(MAX6675_SS2_PIN)
+        #endif
       #endif
-      */
+
     #endif
-    //ga
+
     static uint8_t max6675_errors[COUNT_6675] = { 0 };
 
     // Return last-read value between readings
@@ -2327,13 +2333,6 @@ void Temperature::disable_all_heaters() {
     if (PENDING(ms, next_max6675_ms[hindex])) return int(MAX6675_TEMP(hindex));
     next_max6675_ms[hindex] = ms + MAX6675_HEAT_INTERVAL;
 
-    //ga
-    //#if HAS_MAX31865
-      //Adafruit_MAX31865 &maxref = MAX6675_SEL(max31865_0, max31865_1);
-      //const uint16_t max31865_ohms = (uint32_t(maxref.readRTD()) * MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) >> 16;
-    //#endif
-
-    /*
     //
     // TODO: spiBegin, spiRec and spiInit doesn't work when soft spi is used.
     //
@@ -2346,11 +2345,9 @@ void Temperature::disable_all_heaters() {
       MAX6675_WRITE(LOW);  // enable TT_MAX6675
       DELAY_NS(100);       // Ensure 100ns delay
     #endif
-    */
 
     max6675_temp = 0;
 
-    /*
     // Read a big-endian temperature value
     #if NO_THERMO_TEMPS
       for (uint8_t i = sizeof(max6675_temp); i--;) {
@@ -2359,7 +2356,6 @@ void Temperature::disable_all_heaters() {
       }
         MAX6675_WRITE(HIGH); // disable TT_MAX6675
     #endif
-    */
 
     #if HAS_MAX31855_TEMP
       Adafruit_MAX31855 &max855ref = MAX6675_SEL(max31855_0, max31855_1);
@@ -2368,7 +2364,9 @@ void Temperature::disable_all_heaters() {
 
     #if HAS_MAX31865_TEMP
       Adafruit_MAX31865 &max865ref = MAX6675_SEL(max31865_0, max31865_1);
-      max6675_temp = max865ref.readRTD_with_Fault();
+      #if ENABLED(LIB_USR_MAX31865)
+        max6675_temp = max865ref.readRTD_with_Fault();
+      #endif
       #if ECHO_TEMP
           SERIAL_ECHOLNPAIR("Max31865 RTD MSB:    ", max6675_temp >> 8 ,"    LSB:    ", max6675_temp & 0x00FF," ");
       #endif
@@ -2380,10 +2378,15 @@ void Temperature::disable_all_heaters() {
     #endif
 
     //ga
-    //const uint8_t fault_31865 = TERN1(HAS_MAX31865, maxref.readFault());
+    #if ENABLED(LIB_ADAFRUIT_MAX31865)
+      const uint8_t fault_31865 = max865ref.readFault() & 0x3FU;
+    #endif
 
-    //if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK) && fault_31865) {
-    if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK)) {
+    #if ENABLED(LIB_ADAFRUIT_MAX31865)
+      if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && fault_31865) {
+    #else
+      if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK)) {
+    #endif
       max6675_errors[hindex]++;
       if (max6675_errors[hindex] > THERMOCOUPLE_MAX_ERRORS) {
         SERIAL_ERROR_START();
@@ -2397,9 +2400,11 @@ void Temperature::disable_all_heaters() {
             else if (max6675_temp & 4)
               SERIAL_ECHOLNPAIR("Fault : (", max6675_temp & 4 ,")  >> Short to VCC");
         #elif MAX6675_HAS_MAX31865
-          // At the present time we do not have the ability to set the MAX31865 HIGH threshold
-          // or thr LOW threshold, so no need to check for them, zero these bits out
-          const uint8_t fault_31865 = max865ref.readFault() & 0x3FU;
+          #if ENABLED(LIB_USR_MAX31865)
+            // At the present time we do not have the ability to set the MAX31865 HIGH threshold
+            // or thr LOW threshold, so no need to check for them, zero these bits out
+            const uint8_t fault_31865 = max865ref.readFault() & 0x3FU;
+          #endif
           max865ref.clearFault();
           if (fault_31865) {
             SERIAL_ECHOLN();
@@ -2439,12 +2444,14 @@ void Temperature::disable_all_heaters() {
 
     //ga
     // Return the RTD resistance for MAX31865 for display in SHOW_TEMP_ADC_VALUES
-    //TERN_(HAS_MAX31865, max6675_temp = max31865_ohms);
-
-    // Return the RTD resistance for MAX31865 for display in SHOW_TEMP_ADC_VALUES
-    #if MAX6675_HAS_MAX31865
-      max6675_temp = (uint32_t(max6675_temp) * MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) >> 16;
+    #if HAS_MAX31865_TEMP
+      #if ENABLED(LIB_ADAFRUIT_MAX31865)
+        max6675_temp = (uint32_t(max865ref.readRTD()) * MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) >> 16;
+      #elif ENABLED(LIB_USR_MAX31865)
+        max6675_temp = (uint32_t(max6675_temp) * MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) >> 16;
+      #endif
     #endif
+
     //ga
     #if ECHO_TEMP
       #if HAS_MAX31855_TEMP || HAS_MAX6675_TEMP
