@@ -45,7 +45,8 @@
   #include "../lcd/extui/ui_api.h"
 #endif
 //ga
-#if MAX6675_HAS_MAX31855
+// LIB_MAX31855 can be added in platformio.ini file on the build_flags line to use this library
+#if MAX6675_HAS_MAX31855 && ENABLED(LIB_MAX31855)
   #include <Adafruit_MAX31855.h>
   #if PIN_EXISTS(MAX31855_MISO) && PIN_EXISTS(MAX31855_SCK)
     #define MAX31855_USES_SW_SPI 1
@@ -56,6 +57,7 @@
       #if MAX31855_USES_SW_SPI
         , MAX31855_MISO_PIN, MAX31855_SCK_PIN  // For software SPI also set MISO/SCK
       #endif
+      //LARGE_PINMAP can be added in platformio.ini file on the build_flags line
       #if ENABLED(LARGE_PINMAP)
         , HIGH
       #endif
@@ -67,6 +69,7 @@
       #if MAX31855_USES_SW_SPI
         , MAX31855_MISO_PIN, MAX31855_SCK_PIN  // For software SPI also set MISO/SCK
       #endif
+      //LARGE_PINMAP can be added in platformio.ini file on the build_flags line
       #if ENABLED(LARGE_PINMAP)
         , HIGH
       #endif
@@ -85,6 +88,7 @@
         #if MAX31865_USES_SW_SPI && PIN_EXISTS(MAX31865_MOSI)
           , MAX31865_MOSI_PIN, MAX31865_MISO_PIN, MAX31865_SCK_PIN  // For software SPI also set MOSI/MISO/SCK
         #endif
+        //LARGE_PINMAP can be added in platformio.ini file on the build_flags line
         #if ENABLED(LARGE_PINMAP)
           , HIGH
         #endif
@@ -96,6 +100,7 @@
       #if MAX31865_USES_SW_SPI && PIN_EXISTS(MAX31865_MOSI)
         , MAX31865_MOSI_PIN, MAX31865_MISO_PIN, MAX31865_SCK_PIN  // For software SPI also set MOSI/MISO/SCK
       #endif
+      //LARGE_PINMAP can be added in platformio.ini file on the build_flags line
       #if ENABLED(LARGE_PINMAP)
           , HIGH
       #endif
@@ -103,7 +108,8 @@
   #endif
 #endif
 //ga
-#if MAX6675_HAS_MAX6675
+// LIB_MAX6675 can be added in platformio.ini file on the build_flags line to use this library
+#if MAX6675_HAS_MAX6675 && ENABLED(LIB_MAX6675)
   #include <max6675.h>
   #if PIN_EXISTS(MAX6675_MISO) && PIN_EXISTS(MAX6675_SCK)
     #define MAX6675_USES_SW_SPI 1
@@ -114,6 +120,7 @@
       #if MAX6675_USES_SW_SPI
         , MAX6675_MISO_PIN, MAX6675_SCK_PIN   // For software SPI also set MISO/SCK
       #endif
+      //LARGE_PINMAP can be added in platformio.ini file on the build_flags line
       #if ENABLED(LARGE_PINMAP)
         , HIGH  //HIGH  LOW
       #endif
@@ -125,6 +132,7 @@
       #if MAX6675_USES_SW_SPI
         , MAX6675_MISO_PIN, MAX6675_SCK_PIN   // For software SPI also set MISO/SCK
       #endif
+      //LARGE_PINMAP can be added in platformio.ini file on the build_flags line
       #if ENABLED(LARGE_PINMAP)
         , HIGH
       #endif
@@ -135,16 +143,16 @@
 #if !HAS_MAX6675_TEMP && !HAS_MAX31855_TEMP && !HAS_MAX31865_TEMP
   #define NO_THERMO_TEMPS 1
 #endif
-/*
+
+//ga
 #if (HEATER_0_USES_MAX6675 || HEATER_1_USES_MAX6675) && PINS_EXIST(MAX6675_SCK, MAX6675_DO) && NO_THERMO_TEMPS
   #define MAX6675_SEPARATE_SPI 1
 #endif
 
-
+//ga
 #if MAX6675_SEPARATE_SPI
   #include "../libs/private_spi.h"
 #endif
-*/
 
 #if ENABLED(PID_EXTRUSION_SCALING)
   #include "stepper.h"
@@ -1719,12 +1727,11 @@ void Temperature::updateTemperaturesFromRawValues() {
   raw_temps_ready = false;
 }
 
-/*
+//ga
 #if MAX6675_SEPARATE_SPI
   template<uint8_t MisoPin, uint8_t MosiPin, uint8_t SckPin> SoftSPI<MisoPin, MosiPin, SckPin> SPIclass<MisoPin, MosiPin, SckPin>::softSPI;
   SPIclass<MAX6675_DO_PIN, MOSI_PIN, MAX6675_SCK_PIN> max6675_spi;
 #endif
-*/
 
 // Init fans according to whether they're native PWM or Software PWM
 #ifdef ALFAWISE_UX0
@@ -1870,6 +1877,7 @@ void Temperature::init() {
     INIT_FAN_PIN(CONTROLLER_FAN_PIN);
   #endif
 
+  //ga
   //TERN_(MAX6675_SEPARATE_SPI, max6675_spi.init());
 
   HAL_adc_init();
@@ -2319,6 +2327,12 @@ void Temperature::disable_all_heaters() {
     if (PENDING(ms, next_max6675_ms[hindex])) return int(MAX6675_TEMP(hindex));
     next_max6675_ms[hindex] = ms + MAX6675_HEAT_INTERVAL;
 
+    //ga
+    //#if HAS_MAX31865
+      //Adafruit_MAX31865 &maxref = MAX6675_SEL(max31865_0, max31865_1);
+      //const uint16_t max31865_ohms = (uint32_t(maxref.readRTD()) * MAX6675_SEL(MAX31865_CALIBRATION_OHMS_0, MAX31865_CALIBRATION_OHMS_1)) >> 16;
+    //#endif
+
     /*
     //
     // TODO: spiBegin, spiRec and spiInit doesn't work when soft spi is used.
@@ -2365,6 +2379,10 @@ void Temperature::disable_all_heaters() {
       max6675_temp = max6675ref.readRaw16();
     #endif
 
+    //ga
+    //const uint8_t fault_31865 = TERN1(HAS_MAX31865, maxref.readFault());
+
+    //if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK) && fault_31865) {
     if (DISABLED(IGNORE_THERMOCOUPLE_ERRORS) && (max6675_temp & MAX6675_ERROR_MASK)) {
       max6675_errors[hindex]++;
       if (max6675_errors[hindex] > THERMOCOUPLE_MAX_ERRORS) {
@@ -2418,6 +2436,10 @@ void Temperature::disable_all_heaters() {
     #if MAX6675_0_IS_MAX31855 || MAX6675_1_IS_MAX31855
       if (max6675_temp & 0x00002000) max6675_temp |= 0xFFFFC000; // Support negative temperature
     #endif
+
+    //ga
+    // Return the RTD resistance for MAX31865 for display in SHOW_TEMP_ADC_VALUES
+    //TERN_(HAS_MAX31865, max6675_temp = max31865_ohms);
 
     // Return the RTD resistance for MAX31865 for display in SHOW_TEMP_ADC_VALUES
     #if MAX6675_HAS_MAX31865
