@@ -91,7 +91,7 @@
 #define ECHO_MAX31865_RESITANCE 0
 //#define TEMP_SENSOR_1_PIN   P0_03
 //
-#define MAX31865_SW_SPI   //-5
+//#define MAX31865_SW_SPI   //-5
 //#define MAX31865_HW_SPI   //-5
 //#define MAX31855_SW_SPI     //-3
 //#define MAX31855_HW_SPI   //-3
