@@ -546,12 +546,14 @@
   #define MAX6675_SCK_PIN MAX31855_SCK_PIN
 #endif
 
-
 //
 // Possibly trigger user defined libraries
 //
 //LIB_MAX31865 can be added in platformio.ini file on the build_flags line
 //to turn on a USER library for MAX31865
+#undef LIB_USR_MAX31865
+#undef LIB_USR_MAX31865
+#undef LIB_USR_MAX6675
 #if MAX6675_HAS_MAX31865 && DISABLED(LIB_MAX31865)
   #undef LIB_USR_MAX31865
   #define LIB_ADAFRUIT_MAX31865 1
