@@ -103,6 +103,15 @@
   #define Z_CS_PIN                         P1_17
 #endif
 
+/*
+#define Z2_STEP_PIN                        P2_11
+#define Z2_DIR_PIN                         P2_12
+#define Z2_ENABLE_PIN                      P0_21
+#ifndef Z2_CS_PIN
+  #define Z2_CS_PIN                        P0_22
+#endif
+*/
+
 #define E0_STEP_PIN                        P2_06
 #define E0_DIR_PIN                         P2_07
 #define E0_ENABLE_PIN                      P0_04
@@ -110,12 +119,14 @@
   #define E0_CS_PIN                        P0_05
 #endif
 
-#define E1_STEP_PIN                        P2_11
-#define E1_DIR_PIN                         P2_12
+/*
+#define E1_STEP_PIN                        P2_11   //reassigned to Z2 due to the fact that
+#define E1_DIR_PIN                         P2_12   //in configuration_adv.h NUM_Z_STEPPER_DRIVERS is set 2
 #define E1_ENABLE_PIN                      P0_21
 #ifndef E1_CS_PIN
   #define E1_CS_PIN                        P0_22
 #endif
+*/
 
 #if HAS_TMC_UART
   /**
@@ -161,7 +172,7 @@
 //
 #define TEMP_0_PIN                         P0_24
 #define TEMP_1_PIN                         P0_23
-//#define TEMP_2_PIN                       P1_30  // Onboard thermistor
+//#define TEMP_2_PIN                       P1_30  // Onboard thermistor  //can I assign this as chamber temperature??
 #define TEMP_BED_PIN                       P0_25
 
 //
@@ -172,6 +183,10 @@
 #define HEATER_BED_PIN                     P2_05  // BED
 #define FAN_PIN                            P2_01
 #define FAN1_PIN                           P2_02
+
+#ifndef CONTROLLER_FAN_PIN
+  #define CONTROLLER_FAN_PIN            FAN1_PIN
+#endif
 
 /**
  *                  _____
