@@ -315,8 +315,8 @@
  * Specify whether the power supply is active HIGH or active LOW.
  */
 //ga
-//#define PSU_CONTROL
-//#define PSU_NAME "BTT Relay v1.2"   //Add G4 S(time in seconds)+M81 command or M109 R(temp. in Celsius)+M81 in Slicer's Ending Script file
+#define PSU_CONTROL
+#define PSU_NAME "BTT Relay v1.2"   //Add G4 S(time in seconds)+M81 command or M109 R(temp. in Celsius)+M81 in Slicer's Ending Script file
 
 #if ENABLED(PSU_CONTROL)
   #define PSU_ACTIVE_STATE HIGH      // Set 'LOW' for ATX, 'HIGH' for X-Box  //ga orgianlly set to LOW
@@ -1919,7 +1919,7 @@
 // If you have a speaker that can produce tones, enable it here.
 // By default Marlin assumes you have a buzzer with a fixed frequency.
 ////ga
-//#define SPEAKER
+#define SPEAKER
 
 //
 // The duration and frequency for the UI feedback sound.

@@ -206,13 +206,13 @@
 #define EXPA1_07_PIN                       -1
 #define EXPA1_08_PIN                       P0_19
 #define EXPA1_09_PIN                       P0_16
-//#define EXPA1_10_PIN                       P2_08
+#define EXPA1_10_PIN                       P2_08
 
 #if HAS_WIRED_LCD
 
   #if ENABLED(CR10_STOCKDISPLAY)
 
-    //#define BEEPER_PIN              EXPA1_10_PIN
+    #define BEEPER_PIN              EXPA1_10_PIN
 
     #define BTN_EN1                 EXPA1_08_PIN
     #define BTN_EN2                 EXPA1_06_PIN
