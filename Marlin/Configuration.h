@@ -1918,8 +1918,8 @@
 //
 // If you have a speaker that can produce tones, enable it here.
 // By default Marlin assumes you have a buzzer with a fixed frequency.
-//
-#define SPEAKER
+////ga
+//#define SPEAKER
 
 //
 // The duration and frequency for the UI feedback sound.
@@ -2179,7 +2179,9 @@
 // (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
 ////ga
 #define CR10_STOCKDISPLAY
-
+#if ENABLED(CR10_STOCKDISPLAY)
+  //#define RET6_12864_LCD  // Specific to the SoC (can either be RET / VET)
+#endif
 //
 // Ender-2 OEM display, a variant of the MKS_MINI_12864
 //

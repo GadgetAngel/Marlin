@@ -119,13 +119,14 @@
   #define E0_CS_PIN                        P0_05
 #endif
 
+/*
 #define E1_STEP_PIN                        P2_11   //reassigned to Z2 due to the fact that
 #define E1_DIR_PIN                         P2_12   //in configuration_adv.h NUM_Z_STEPPER_DRIVERS is set 2
 #define E1_ENABLE_PIN                      P0_21
 #ifndef E1_CS_PIN
   #define E1_CS_PIN                        P0_22
 #endif
-
+*/
 
 #if HAS_TMC_UART
   /**
@@ -205,13 +206,13 @@
 #define EXPA1_07_PIN                       -1
 #define EXPA1_08_PIN                       P0_19
 #define EXPA1_09_PIN                       P0_16
-#define EXPA1_10_PIN                       P2_08
+//#define EXPA1_10_PIN                       P2_08
 
 #if HAS_WIRED_LCD
 
   #if ENABLED(CR10_STOCKDISPLAY)
 
-    #define BEEPER_PIN              EXPA1_10_PIN
+    //#define BEEPER_PIN              EXPA1_10_PIN
 
     #define BTN_EN1                 EXPA1_08_PIN
     #define BTN_EN2                 EXPA1_06_PIN
