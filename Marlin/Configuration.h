@@ -316,7 +316,7 @@
  */
 //ga
 #define PSU_CONTROL
-#define PSU_NAME "BTT Relay v1.2"   //Add G4 S(time in seconds)+M81 command or M109 R(temp. in Celsius)+M81 in Slicer End script
+#define PSU_NAME "BTT Relay v1.2"   //Add G4 S(time in seconds)+M81 command or M109 R(temp. in Celsius)+M81 in Slicer's Ending Script file
 
 #if ENABLED(PSU_CONTROL)
   #define PSU_ACTIVE_STATE HIGH      // Set 'LOW' for ATX, 'HIGH' for X-Box  //ga orgianlly set to LOW
