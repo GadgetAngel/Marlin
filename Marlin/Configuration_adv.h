@@ -581,7 +581,7 @@
 // For Z set the number of stepper drivers
 //
 //ga
-#define NUM_Z_STEPPER_DRIVERS 2   // (1-4) Z options change based on how many
+#define NUM_Z_STEPPER_DRIVERS 1   // (1-4) Z options change based on how many  //for Dual Z steppers one in Z axis the second in E1 socket set to 2
 
 #if NUM_Z_STEPPER_DRIVERS > 1
   //#define Z_MULTI_ENDSTOPS
@@ -1232,12 +1232,12 @@
    * point in the file.
    */
   //ga
-  #define POWER_LOSS_RECOVERY
+  //#define POWER_LOSS_RECOVERY
   #if ENABLED(POWER_LOSS_RECOVERY)
-    #define PLR_ENABLED_DEFAULT   True // Power Loss Recovery enabled by default. (Set with 'M413 Sn' & M500)
+    #define PLR_ENABLED_DEFAULT   true // Power Loss Recovery enabled by default. (Set with 'M413 Sn' & M500)
     #define BACKUP_POWER_SUPPLY       // Backup power / UPS to move the steppers on power loss
     //#define POWER_LOSS_RECOVER_ZHOME  // Z homing is needed for proper recovery. 99.9% of the time this should be disabled!
-    #define POWER_LOSS_ZRAISE       10 // (mm) Z axis raise on resume (on power loss with UPS)
+    #define POWER_LOSS_ZRAISE       3 // (mm) Z axis raise on resume (on power loss with UPS)
     #define POWER_LOSS_PIN         P1_20 // Pin to detect power loss. Set to -1 to disable default pin on boards without module.
     #define POWER_LOSS_STATE     HIGH // State of pin indicating power loss
     #define POWER_LOSS_PULLUP         // Set pullup / pulldown as appropriate for your sensor
@@ -3312,7 +3312,8 @@
  *
  * Execute certain G-code commands immediately after power-on.
  */
-#define STARTUP_COMMANDS "M17 Z"
+//ga
+//#define STARTUP_COMMANDS "M17 Z"
 
 /**
  * G-code Macros
