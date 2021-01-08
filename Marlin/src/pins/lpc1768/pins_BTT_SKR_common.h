@@ -64,7 +64,7 @@
 //  3.3V max when defined as an analog input
 //
 #ifndef TEMP_0_PIN
-  //#define TEMP_0_PIN                    P0_24_A1  // A1 (T1) - (68) - TEMP_0_PIN
+  #define TEMP_0_PIN                    P0_24_A1  // A1 (T1) - (68) - TEMP_0_PIN
 #endif
 #ifndef TEMP_1_PIN
   //#define TEMP_1_PIN                    P0_25_A2  // A2 (T2) - (69) - TEMP_1_PIN
@@ -85,7 +85,7 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-#define TEMP_0_PIN          P0_03    //SW P0_00  //HW P0_03  //SW P1_14 //HW P0_03
+//#define TEMP_0_PIN          P0_03    //SW P0_00  //HW P0_03  //SW P1_14 //HW P0_03
 //#define TEMP_SENSOR_0_PIN   TEMP_0_PIN
 #define ECHO_TEMP 0
 #define ECHO_MAX31865_RESITANCE 0
