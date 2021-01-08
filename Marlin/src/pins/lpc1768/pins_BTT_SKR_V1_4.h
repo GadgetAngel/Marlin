@@ -142,9 +142,9 @@
 #define E0_STEP_PIN                        P2_13
 #define E0_DIR_PIN                         P0_11
 #define E0_ENABLE_PIN                      P2_12
-//#ifndef E0_CS_PIN
-  //#define E0_CS_PIN                        P1_04
-//#endif
+#ifndef E0_CS_PIN
+  #define E0_CS_PIN                        P1_04
+#endif
 
 /*
 //#define E1_STEP_PIN                        P1_15
@@ -155,7 +155,7 @@
 //#endif
 */
 
-#define TEMP_1_PIN                      P0_23_A0  // A0 (T0) - (67) - TEMP_1_PIN
+//#define TEMP_1_PIN                      P0_23_A0  // A0 (T0) - (67) - TEMP_1_PIN
 #define TEMP_BED_PIN                    P0_25_A2  // A2 (T2) - (69) - TEMP_BED_PIN
 
 //
@@ -204,8 +204,8 @@
   #define Z_SERIAL_TX_PIN                  P1_08
   #define Z_SERIAL_RX_PIN                  P1_08
 
-  #define E0_SERIAL_TX_PIN                 P1_04
-  #define E0_SERIAL_RX_PIN                 P1_04
+  //#define E0_SERIAL_TX_PIN                 P1_04
+  //#define E0_SERIAL_RX_PIN                 P1_04
 
   //#define E1_SERIAL_TX_PIN                 P1_01
   //#define E1_SERIAL_RX_PIN                 P1_01
