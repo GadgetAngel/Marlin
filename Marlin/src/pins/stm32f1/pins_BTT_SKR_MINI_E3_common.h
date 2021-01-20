@@ -91,8 +91,17 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                          PA0   // Analog Input "TH0"
+//#define TEMP_0_PIN                          PA0   // Analog Input "TH0"
 #define TEMP_BED_PIN                        PC3   // Analog Input "TB0"
+
+//ga
+//setup MAX31865 board
+#define TEMP_0_PIN          PA9
+#define MAX31865_CS_PIN     TEMP_0_PIN
+#define MAX31865_MOSI_PIN   PB9
+#define MAX6675_DO_PIN      PB5
+#define MAX6675_SCK_PIN     PB6
+#define MAX6675_SS_PIN      PB8   //unused PIN
 
 //
 // Heaters / Fans
