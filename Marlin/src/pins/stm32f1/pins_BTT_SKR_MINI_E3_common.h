@@ -84,8 +84,18 @@
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN                          PA0   // Analog Input "TH0"
+//#define TEMP_0_PIN                          PA0   // Analog Input "TH0"
 #define TEMP_BED_PIN                        PC3   // Analog Input "TB0"
+
+//set MAX31865
+#define TEMP_0_PIN                          PA9
+#define MAX31865_CS_PIN                     TEMP_0_PIN
+
+#define MAX31865_MOSI_PIN                   PB9  //PB9
+#define MAX6675_DO_PIN                      PB5  //PB5
+#define MAX6675_SCK_PIN                     PA10  //PB6
+
+#define MAX6675_SS_PIN                      PB8   //unused
 
 //
 // Heaters / Fans
@@ -125,8 +135,8 @@
   #define EXP1_9                            PA15
   #define EXP1_3                            PB15
 #else
-  #define EXP1_9                            PB6
-  #define EXP1_3                            PB7
+  //#define EXP1_9                            PB6
+  //#define EXP1_3                            PB7
 #endif
 
 #if HAS_WIRED_LCD
