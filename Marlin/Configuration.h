@@ -105,6 +105,7 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
+ //ga
 #define SERIAL_PORT -1  //2  //-1
 
 /**
@@ -1849,6 +1850,7 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  */
+ //ga
 #define SDSUPPORT
 
 /**
