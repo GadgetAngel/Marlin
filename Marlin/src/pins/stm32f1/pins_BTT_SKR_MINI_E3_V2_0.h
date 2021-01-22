@@ -37,6 +37,7 @@
 #endif
 
 // Release PA13/PA14 (led, usb control) from SWD pins
+//ga
 //#define DISABLE_DEBUG
 
 #ifndef NEOPIXEL_PIN

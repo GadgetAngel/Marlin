@@ -26,6 +26,7 @@
 #endif
 
 // Release PB3/PB4 (E0 STP/DIR) from JTAG pins
+//ga
 //#define DISABLE_JTAG
 
 // Ignore temp readings during development.
@@ -110,11 +111,12 @@
 // USB connect control
 //
 #ifdef SKR_MINI_E3_V2
+  //ga
   //#define USB_CONNECT_PIN                   PA14  //was PA14 which is SWCLK line for SWD connector
 #else
   #define USB_CONNECT_PIN                   PC13
 #endif
-
+//ga
 //#define USB_CONNECT_INVERTING              false
 
 /**
