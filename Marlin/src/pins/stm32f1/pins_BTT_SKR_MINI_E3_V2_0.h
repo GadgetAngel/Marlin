@@ -37,20 +37,21 @@
 #endif
 
 // Release PA13/PA14 (led, usb control) from SWD pins
-#define DISABLE_DEBUG
+//#define DISABLE_DEBUG
 
 #ifndef NEOPIXEL_PIN
   #define NEOPIXEL_PIN                     PA8   // LED driving pin
 #endif
 
-#ifndef PS_ON_PIN
-  #define PS_ON_PIN                        PC13  // Power Supply Control
-#endif
+// PC13 will act as USB_CONNECT_PIN on my modified SKR MINI E3 V2.0 board
+//#ifndef PS_ON_PIN
+  //#define PS_ON_PIN                        PC13  // Power Supply Control
+//#endif
 
 #define FAN1_PIN                           PC7
 
 #ifndef CONTROLLER_FAN_PIN
-  #define CONTROLLER_FAN_PIN               FAN1_PIN
+  //#define CONTROLLER_FAN_PIN               FAN1_PIN
 #endif
 
 #if HAS_TMC_UART
