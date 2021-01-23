@@ -106,7 +106,7 @@
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
  //ga
-#define SERIAL_PORT -1  //2  //-1
+#define SERIAL_PORT 2  //2  //-1
 
 /**
  * Select a secondary serial port on the board to use for communication with the host.
@@ -114,7 +114,7 @@
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
 //ga
-#define SERIAL_PORT_2 2
+//#define SERIAL_PORT_2 2
 
 /**
  * This setting determines the communication speed of the printer.

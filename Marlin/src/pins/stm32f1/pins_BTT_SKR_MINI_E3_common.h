@@ -27,7 +27,7 @@
 
 // Release PB3/PB4 (E0 STP/DIR) from JTAG pins
 //ga
-#define DISABLE_JTAG
+//#define DISABLE_JTAG
 
 // Ignore temp readings during development.
 //#define BOGUS_TEMPERATURE_GRACE_PERIOD    2000
@@ -112,12 +112,12 @@
 //
 #ifdef SKR_MINI_E3_V2
   //ga
-  #define USB_CONNECT_PIN                   PA14  //was PA14 which is SWCLK line for SWD connector
+  //#define USB_CONNECT_PIN                   PA14  //was PA14 which is SWCLK line for SWD connector
 #else
   #define USB_CONNECT_PIN                   PC13
 #endif
 //ga
-#define USB_CONNECT_INVERTING              false
+//#define USB_CONNECT_INVERTING              false
 
 /**
  *        SKR Mini E3 V1.0, V1.2                      SKR Mini E3 V2.0
