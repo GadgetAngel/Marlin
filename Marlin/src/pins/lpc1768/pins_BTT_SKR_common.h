@@ -96,19 +96,6 @@
   #define BEEPER_PIN                       P1_30  // (37) not 5V tolerant
 #endif
 
-  //#define PIN_IS_SDA1                         P0_0
-  //#define PIN_IS_SCL1                         P0_1
-// Onboard I2C EEPROM
-
-//#define I2C_EEPROM 1
-/* I2C */
-/*
-#if ENABLED(I2C_EEPROM)
-  #define MARLIN_EEPROM_SIZE 0x7FFF         // EEPROM end address AT24C256 (32kB)
-#endif
-#define E2END           (MARLIN_EEPROM_SIZE - 1)  // 2KB
-*/
-
 //
 // SD Support
 //

@@ -21,11 +21,11 @@
  */
 #pragma once
 
-#if I2C_EEPROM
+#if ENABLED(I2C_EEPROM)
   #define myvar3 1
 #endif
 
-#if SPI_EEPROM
+#if ENABLED(SPI_EEPROM)
   #define myvar3 5
 #endif
 
