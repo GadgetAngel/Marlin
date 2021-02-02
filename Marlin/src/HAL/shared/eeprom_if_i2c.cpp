@@ -34,6 +34,10 @@
 
 void eeprom_init() { Wire.begin(); }
 
+#if USE_SHARED_EEPROM
+#define myvar 1
+#endif
+
 #if ENABLED(USE_SHARED_EEPROM)
 
 #ifndef EEPROM_WRITE_DELAY

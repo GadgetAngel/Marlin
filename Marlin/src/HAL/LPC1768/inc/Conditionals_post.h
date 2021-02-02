@@ -21,6 +21,14 @@
  */
 #pragma once
 
+#if I2C_EEPROM
+  #define myvar3 1
+#endif
+
+#if SPI_EEPROM
+  #define myvar3 5
+#endif
+
 #if USE_FALLBACK_EEPROM
   #define FLASH_EEPROM_EMULATION
 #elif EITHER(I2C_EEPROM, SPI_EEPROM)
