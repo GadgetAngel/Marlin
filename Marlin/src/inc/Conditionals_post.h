@@ -42,7 +42,7 @@
   #define HAS_LINEAR_E_JERK 1
 #endif
 
-
+//ga
 // Determine which type of 'EEPROM' is in use
 #if ENABLED(EEPROM_SETTINGS)
   // EEPROM type may be defined by compile flags, configs, HALs, or pins

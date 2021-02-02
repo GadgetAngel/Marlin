@@ -103,13 +103,13 @@
  *
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#define SERIAL_PORT 0
+#define SERIAL_PORT -1
 
 /**
  * Select a secondary serial port on the board to use for communication with the host.
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-#define SERIAL_PORT_2 -1
+#define SERIAL_PORT_2 0
 
 /**
  * This setting determines the communication speed of the printer.
@@ -1482,13 +1482,13 @@
 //ga
 // Onboard I2C EEPROM
 //ga
-//#define I2C_EEPROM
+#define I2C_EEPROM
 #if ENABLED(I2C_EEPROM)
   // uncomment the size of EEPROM you are using.
-  #define MARLIN_EEPROM_SIZE 0x7FFF // EEPROM end address AT24C256 (32kB)
+  //#define MARLIN_EEPROM_SIZE 0x7FFF // EEPROM end address AT24C256 (32kB)
   //#define MARLIN_EEPROM_SIZE 0x3FFF // EEPROM end address AT24C128 (16kB)
   //#define MARLIN_EEPROM_SIZE 0x1FFF // EEPROM end address AT24C64 (8kB)
-  //#define MARLIN_EEPROM_SIZE 0x0FFF // EEPROM end address AT24C32 (4kB)
+  #define MARLIN_EEPROM_SIZE 0x0FFF // EEPROM end address AT24C32 (4kB)
   //#define MARLIN_EEPROM_SIZE 0xFFFF // EEPROM end address AT24C512 (64kB)
 #endif
 

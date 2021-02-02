@@ -41,6 +41,7 @@
 
 // Check the integrity of data offsets.
 // Can be disabled for production build.
+//ga
 //#define DEBUG_EEPROM_READWRITE
 
 #include "settings.h"

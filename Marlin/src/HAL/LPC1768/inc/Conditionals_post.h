@@ -28,7 +28,7 @@
 #if ENABLED(SPI_EEPROM)
   #define myvar3 5
 #endif
-
+//ga
 #if USE_FALLBACK_EEPROM
   #define FLASH_EEPROM_EMULATION
 #elif EITHER(I2C_EEPROM, SPI_EEPROM)

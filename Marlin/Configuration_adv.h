@@ -3588,4 +3588,5 @@
 //#define PINS_DEBUGGING
 
 // Enable Marlin dev mode which adds some special commands
+//ga
 //#define MARLIN_DEV_MODE
