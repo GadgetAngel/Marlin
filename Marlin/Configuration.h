@@ -1482,7 +1482,7 @@
 //ga
 // Onboard I2C EEPROM
 //ga
-#define I2C_EEPROM
+//#define I2C_EEPROM
 #if ENABLED(I2C_EEPROM)
   // uncomment the size of EEPROM you are using.
   #define MARLIN_EEPROM_SIZE 0x7FFF // EEPROM end address AT24C256 (32kB)
