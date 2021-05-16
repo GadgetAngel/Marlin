@@ -154,8 +154,8 @@
 #endif
 
 #if ENABLED(DGUS_LCD_UI_MKS)
-  #include "../lcd/extui/lib/dgus/DGUSScreenHandler.h"
-  #include "../lcd/extui/lib/dgus/DGUSDisplayDef.h"
+  #include "../lcd/extui/dgus/DGUSScreenHandler.h"
+  #include "../lcd/extui/dgus/DGUSDisplayDef.h"
 #endif
 
 #pragma pack(push, 1) // No padding between variables
@@ -532,6 +532,8 @@ void MarlinSettings::postprocess() {
   TERN_(HAS_LINEAR_E_JERK, planner.recalculate_max_e_jerk());
 
   TERN_(CASELIGHT_USES_BRIGHTNESS, caselight.update_brightness());
+
+  TERN_(EXTENSIBLE_UI, ExtUI::onPostprocessSettings());
 
   // Refresh steps_to_mm with the reciprocal of axis_steps_per_mm
   // and init stepper.count[], planner.position[] with current_position
@@ -1070,7 +1072,7 @@ void MarlinSettings::postprocess() {
     {
       _FIELD_TEST(tmc_stepper_current);
 
-      tmc_stepper_current_t tmc_stepper_current = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+      tmc_stepper_current_t tmc_stepper_current{0};
 
       #if HAS_TRINAMIC_CONFIG
         #if AXIS_IS_TMC(X)
@@ -1132,7 +1134,7 @@ void MarlinSettings::postprocess() {
       _FIELD_TEST(tmc_hybrid_threshold);
 
       #if ENABLED(HYBRID_THRESHOLD)
-       tmc_hybrid_threshold_t tmc_hybrid_threshold = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        tmc_hybrid_threshold_t tmc_hybrid_threshold{0};
         #if AXIS_HAS_STEALTHCHOP(X)
           tmc_hybrid_threshold.X = stepperX.get_pwm_thrs();
         #endif
@@ -1536,7 +1538,7 @@ void MarlinSettings::postprocess() {
             EEPROM_READ(dummyf);
           #endif
         #else
-          for (uint8_t q = 4; q--;) EEPROM_READ(dummyf);
+          for (uint8_t q = XYZE; q--;) EEPROM_READ(dummyf);
         #endif
 
         EEPROM_READ(TERN(CLASSIC_JERK, dummyf, planner.junction_deviation_mm));
@@ -2254,7 +2256,7 @@ void MarlinSettings::postprocess() {
           const xyz_float_t &backlash_distance_mm = backlash.distance_mm;
           const uint8_t &backlash_correction = backlash.correction;
         #else
-          float backlash_distance_mm[XYZ];
+          xyz_float_t backlash_distance_mm;
           uint8_t backlash_correction;
         #endif
         #if ENABLED(BACKLASH_GCODE) && defined(BACKLASH_SMOOTHING_MM)
@@ -2780,25 +2782,20 @@ void MarlinSettings::reset() {
   // Preheat parameters
   //
   #if PREHEAT_COUNT
+    #define _PITEM(N,T) PREHEAT_##N##_##T,
     #if HAS_HOTEND
-      constexpr uint16_t hpre[] = ARRAY_N(PREHEAT_COUNT, PREHEAT_1_TEMP_HOTEND, PREHEAT_2_TEMP_HOTEND, PREHEAT_3_TEMP_HOTEND, PREHEAT_4_TEMP_HOTEND, PREHEAT_5_TEMP_HOTEND);
+      constexpr uint16_t hpre[] = { REPEAT2_S(1, INCREMENT(PREHEAT_COUNT), _PITEM, TEMP_HOTEND) };
     #endif
     #if HAS_HEATED_BED
-      constexpr uint16_t bpre[] = ARRAY_N(PREHEAT_COUNT, PREHEAT_1_TEMP_BED, PREHEAT_2_TEMP_BED, PREHEAT_3_TEMP_BED, PREHEAT_4_TEMP_BED, PREHEAT_5_TEMP_BED);
+      constexpr uint16_t bpre[] = { REPEAT2_S(1, INCREMENT(PREHEAT_COUNT), _PITEM, TEMP_BED) };
     #endif
     #if HAS_FAN
-      constexpr uint8_t fpre[] = ARRAY_N(PREHEAT_COUNT, PREHEAT_1_FAN_SPEED, PREHEAT_2_FAN_SPEED, PREHEAT_3_FAN_SPEED, PREHEAT_4_FAN_SPEED, PREHEAT_5_FAN_SPEED);
+      constexpr uint8_t fpre[] = { REPEAT2_S(1, INCREMENT(PREHEAT_COUNT), _PITEM, FAN_SPEED) };
     #endif
     LOOP_L_N(i, PREHEAT_COUNT) {
-      #if HAS_HOTEND
-        ui.material_preset[i].hotend_temp = hpre[i];
-      #endif
-      #if HAS_HEATED_BED
-        ui.material_preset[i].bed_temp = bpre[i];
-      #endif
-      #if HAS_FAN
-        ui.material_preset[i].fan_speed = fpre[i];
-      #endif
+      TERN_(HAS_HOTEND,     ui.material_preset[i].hotend_temp = hpre[i]);
+      TERN_(HAS_HEATED_BED, ui.material_preset[i].bed_temp = bpre[i]);
+      TERN_(HAS_FAN,        ui.material_preset[i].fan_speed = fpre[i]);
     }
   #endif
 
@@ -3883,8 +3880,8 @@ void MarlinSettings::reset() {
         say_M603(forReplay);
         SERIAL_ECHOLNPAIR("L", LINEAR_UNIT(fc_settings[0].load_length), " U", LINEAR_UNIT(fc_settings[0].unload_length));
       #else
-        #define _ECHO_603(N) do{ say_M603(forReplay); SERIAL_ECHOLNPAIR("T" STRINGIFY(N) " L", LINEAR_UNIT(fc_settings[N].load_length), " U", LINEAR_UNIT(fc_settings[N].unload_length)); }while(0);
-        REPEAT(EXTRUDERS, _ECHO_603)
+        auto echo_603 = [](const bool f, const uint8_t n) { say_M603(f); SERIAL_ECHOLNPAIR("T", n, " L", LINEAR_UNIT(fc_settings[n].load_length), " U", LINEAR_UNIT(fc_settings[n].unload_length)); };
+        LOOP_L_N(i, EXTRUDERS) echo_603(forReplay, i);
       #endif
     #endif
 
