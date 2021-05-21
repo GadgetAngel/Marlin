@@ -2646,7 +2646,8 @@ void Temperature::disable_all_heaters() {
         SERIAL_ERROR_START();
         SERIAL_ECHOPGM("Temp measurement error! ");
         #if MAX_TC_ERROR_MASK == 7
-          SERIAL_ECHOPGM("MAX31855 Fault : (", max_tc_temp & 0x7, ") >> ");
+        //ga changed line below from SERIAL_ECHOLNPGM to SERIAL_ECHOLNPAIR
+          SERIAL_ECHOLNPAIR("MAX31855 Fault : (", max_tc_temp & 0x7, ") >> ");
           if (max_tc_temp & 0x1)
             SERIAL_ECHOLNPGM("Open Circuit");
           else if (max_tc_temp & 0x2)
