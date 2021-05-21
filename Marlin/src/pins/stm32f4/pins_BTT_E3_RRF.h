@@ -168,7 +168,7 @@
 // GADGETANGEL SECTION Begins ==============================================>>
 //
 // SET ONLY ONE of theses variables or NONE
-#define TEMP_0_PIN          PA10    //SW PG9  //HW PA10 PA9
+#define TEMP_0_PIN          PE7    //SW PG9  //HW PA10 PA9
 //#define ECHO_TEMP 1
 //#define ECHO_MAX31865_RESITANCE 0
 //
@@ -182,14 +182,14 @@
 #ifndef MAX6675_SS_PIN
   #ifdef MAX31865_SW_SPI
     //#define MAX6675_DO_PIN                    PD13
-    #define MAX31865_MISO_PIN                 PD13
+    #define MAX31865_MISO_PIN                 PE8
     //#define MAX6675_SCK_PIN                   PG12
-    #define MAX31865_SCK_PIN                  PG12
+    #define MAX31865_SCK_PIN                  PE9
     //
-    #define MAX31865_MOSI_PIN                 PA9
+    #define MAX31865_MOSI_PIN                 PE10
     //
-    #define MAX31865_CS_PIN                   TEMP_0_PIN
-    //#define MAX6675_SS_PIN                    PG9
+    #define MAX31865_CS_PIN                   TEMP_0_PIN   //use this if Conditionals_post.h file
+    //#define MAX6675_SS_PIN                    TEMP_0_PIN     //use if original Conditionals_post.h file is NOT modified
     // enable the below two lines if you have a second Adafruit MAX31865 in software SPI mode
     //#define MAX31865_CS2_PIN                  TEMP_1_PIN
     //#define MAX6675_SS2_PIN                   TEMP_1_PIN
